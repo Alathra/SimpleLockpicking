@@ -70,6 +70,7 @@ dependencies {
     compileOnly(libs.itemsadder)
     compileOnly(libs.nexo)
     compileOnly(libs.oraxen)
+    compileOnly((files("${project.projectDir}/libs/craftbook-bukkit-5.0.0-beta-04.jar")))
 
     // Testing - Core
     testImplementation(libs.annotations)
@@ -137,7 +138,7 @@ tasks {
 
     runServer {
         // Configure the Minecraft version for our task.
-        minecraftVersion("1.21")
+        minecraftVersion("1.21.4")
 
         // IntelliJ IDEA debugger setup: https://docs.papermc.io/paper/dev/debugging#using-a-remote-debugger
         jvmArgs("-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005", "-DPaper.IgnoreJavaVersion=true", "-Dcom.mojang.eula.agree=true", "-DIReallyKnowWhatIAmDoingISwear", "-Dpaper.playerconnection.keepalive=6000")
@@ -147,7 +148,7 @@ tasks {
         // Automatically install dependencies
         downloadPlugins {
             github("MilkBowl", "Vault", "1.7.3", "Vault.jar")
-            hangar("PlaceholderAPI", "2.11.6")
+            modrinth("CraftBook", "5.0.0-beta-04")
         }
     }
 }
@@ -169,7 +170,7 @@ bukkit { // Options: https://github.com/Minecrell/plugin-yml#bukkit
     // Misc properties
     load = net.minecrell.pluginyml.bukkit.BukkitPluginDescription.PluginLoadOrder.POSTWORLD // STARTUP or POSTWORLD
     depend = listOf()
-    softDepend = listOf("PacketEvents", "Vault", "PlaceholderAPI")
+    softDepend = listOf("CraftBook", "ItemsAdder", "Nexo", "Oraxen", "Towny")
     loadBefore = listOf()
     provides = listOf()
 }

@@ -1,11 +1,10 @@
 package io.github.alathra.simplelockpicking.hook;
 
+import io.github.alathra.simplelockpicking.hook.craftbook.CraftbookHook;
 import io.github.alathra.simplelockpicking.hook.itemsadder.ItemsAdderHook;
 import io.github.alathra.simplelockpicking.hook.nexo.NexoHook;
 import io.github.alathra.simplelockpicking.hook.oraxen.OraxenHook;
-import io.github.alathra.simplelockpicking.hook.placeholderapi.PAPIHook;
 import io.github.alathra.simplelockpicking.hook.towny.TownyHook;
-import io.github.alathra.simplelockpicking.hook.vault.VaultHook;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -14,8 +13,7 @@ import org.jetbrains.annotations.Nullable;
  * Enum of all hooks used by the plugin.
  */
 public enum Hook {
-    PAPI(PAPIHook.class, "PlaceholderAPI", true),
-    Vault(VaultHook.class, "Vault", true),
+    CraftBook(CraftbookHook.class, "Craftbook5", true),
     Towny(TownyHook.class, "Towny", true),
     ItemsAdder(ItemsAdderHook.class, "ItemsAdder", true),
     Nexo(NexoHook.class, "Nexo", true),
@@ -108,23 +106,25 @@ public enum Hook {
             hooks.clearHook();
     }
 
-    /**
-     * Gets papi hook.
-     *
-     * @return the papi hook
-     */
     @NotNull
-    public static PAPIHook getPAPIHook() {
-        return (PAPIHook) Hook.PAPI.get();
+    public static TownyHook getTownyHook() {
+        return (TownyHook) Hook.Towny.get();
     }
 
-    /**
-     * Gets vault hook.
-     *
-     * @return the vault hook
-     */
     @NotNull
-    public static VaultHook getVaultHook() {
-        return (VaultHook) Hook.Vault.get();
+    public static ItemsAdderHook getItemsAdderHook() {
+        return (ItemsAdderHook) Hook.ItemsAdder.get();
     }
+
+    @NotNull
+    public static NexoHook getNexoHook() {
+        return (NexoHook) Hook.Nexo.get();
+    }
+
+    @NotNull
+    public static OraxenHook getOraxenHook() {
+        return (OraxenHook) Hook.Oraxen.get();
+    }
+
+
 }
