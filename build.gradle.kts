@@ -34,6 +34,12 @@ repositories {
             includeGroup("com.github.MilkBowl") // VaultAPI
         }
     }
+    maven("https://repo.glaremasters.me/repository/towny/") { // Towny
+        content { includeGroup("com.palmergames.bukkit.towny") }
+    }
+    maven("https://maven.devs.beer/") // ItemsAdderAPI
+    maven("https://repo.nexomc.com/releases") // Nexo
+    maven("https://repo.oraxen.com/releases") // Oraxen
 }
 
 dependencies {
@@ -44,7 +50,6 @@ dependencies {
     implementation(libs.morepaperlib)
 
     // API
-    implementation(libs.version.watch)
     implementation(libs.crate.api)
     implementation(libs.crate.yaml)
     implementation(libs.colorparser) {
@@ -61,6 +66,10 @@ dependencies {
     compileOnly(libs.placeholderapi) {
         exclude("me.clip.placeholderapi.libs", "kyori")
     }
+    compileOnly(libs.towny)
+    compileOnly(libs.itemsadder)
+    compileOnly(libs.nexo)
+    compileOnly(libs.oraxen)
 
     // Testing - Core
     testImplementation(libs.annotations)
@@ -111,7 +120,6 @@ tasks {
         reloc("space.arim.morepaperlib", "morepaperlib")
         reloc("io.github.milkdrinkers.crate", "crate")
         reloc("io.github.milkdrinkers.colorparser", "colorparser")
-        reloc("io.github.milkdrinkers.versionwatch", "versionwatch")
         reloc("dev.jorel.commandapi", "commandapi")
         reloc("dev.triumphteam.gui", "gui")
 

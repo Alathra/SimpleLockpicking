@@ -1,6 +1,10 @@
 package io.github.alathra.simplelockpicking.hook;
 
+import io.github.alathra.simplelockpicking.hook.itemsadder.ItemsAdderHook;
+import io.github.alathra.simplelockpicking.hook.nexo.NexoHook;
+import io.github.alathra.simplelockpicking.hook.oraxen.OraxenHook;
 import io.github.alathra.simplelockpicking.hook.placeholderapi.PAPIHook;
+import io.github.alathra.simplelockpicking.hook.towny.TownyHook;
 import io.github.alathra.simplelockpicking.hook.vault.VaultHook;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
@@ -11,7 +15,11 @@ import org.jetbrains.annotations.Nullable;
  */
 public enum Hook {
     PAPI(PAPIHook.class, "PlaceholderAPI", true),
-    Vault(VaultHook.class, "Vault", true);
+    Vault(VaultHook.class, "Vault", true),
+    Towny(TownyHook.class, "Towny", true),
+    ItemsAdder(ItemsAdderHook.class, "ItemsAdder", true),
+    Nexo(NexoHook.class, "Nexo", true),
+    Oraxen(OraxenHook.class, "Oraxen", true);
 
     private final @NotNull Class<? extends AbstractHook> hookClass; // The hook class used by this hook
     private final @Nullable String pluginName; // The plugin name used by this hook or null if not applicable

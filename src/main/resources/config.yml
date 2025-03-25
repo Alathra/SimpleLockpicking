@@ -1,8 +1,66 @@
-# Update Checker Settings
-update-checker:
-  enable: true
-  console: true # Post message to console
-  op: true # Send update notification to opped players on join
+# =================================================
+# |   SimpleLockpicking by ShermansWorld          |
+# |   A simple plugin for your lockpicking needs  |
+# ================================================#
 
-# Translation, specify the language file to use, for example `en-US` which will load `/translations/en-US.yml`
-translation: "en-US"
+GeneralSettings:
+  # The worlds where players can use lockpicks
+  enabledWorlds:
+    - world
+    - world_nether
+    - world_the_end
+  # The chance of successfully using a lockpick
+  lockpickChances:
+    barrels: 0.2
+    chestBoats: 0.2
+    chests: 0.2
+    fenceGates: 0.2
+    ironDoors: 0.1
+    ironTrapdoors: 0.1
+    shulkers: 0.2
+    trappedChests: 0.2
+    woodenDoors: 0.2
+    woodenTrapdoors: 0.2
+  # The amount of seconds until doors/gates/trapdoors auto-close after being forced open by a lockpick
+  # Set to 0 to disable this feature
+  secondsUntilClosesAgain: 5
+  # Disables lockpicking for the given blocks/entities
+  # A list of materials can be found here: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html?utm_source=chatgpt.com
+  disableLockpicking:
+    #- OAK_DOOR
+    #- OAK_TRAPDOOR
+    #- OAK_BOAT
+
+LockpickItem:
+  # Possible entries are "ItemsAdder", "Nexo", "Oraxen" or "None". Leave blank or use "None" to use the default lockpick item
+  itemPlugin: ""
+  # The identifier of the custom lockpick item. Only applicable if using an item plugin defined above
+  customLockItemID: ""
+  # The sound made when a player uses a lockpick
+  sound:
+    enabled: true
+    effect: "minecraft:entity.zombie.attack_iron_door"
+    volume: 1.0
+    pitch: 1.0
+  # The default lockpick item if no item plugin is specified
+  # Uses MiniMessage color formats
+  DefaultLockItem:
+    material: STICK
+    customModelData: 8793
+    displayName: "<gray><b>Lockpick"
+    lore:
+      - "<yellow>A special tool to open doors and locked containers"
+
+# These settings only apply if you are running CraftBook3 with SimpleLPicking
+CraftBookCompatibility:
+  Gate:
+    # If this CraftBook mechanic can be lockpicked
+    enabled: true
+    # The chance of successfully using a lockpick on this CraftBook mechanic
+    chance: 0.2
+  Door:
+    enabled: true
+    chance: 0.2
+  Bridge:
+    enabled: true
+    chance: 0.2
