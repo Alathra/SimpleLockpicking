@@ -87,7 +87,7 @@ public class Settings {
     }
 
     public static Material getDefaultLockpickItemMaterial() {
-        String materialString = Cfg.get().getOrDefault("LockpickItem.DefaultLockItem.material", "STICK");
+        String materialString = Cfg.get().getOrDefault("LockpickItem.DefaultLockpickItem.material", "STICK");
         try {
             return Material.valueOf(materialString);
         } catch (IllegalArgumentException e) {
@@ -96,17 +96,17 @@ public class Settings {
     }
 
     public static int getDefaultLockpickItemCustomModelData() {
-        return Cfg.get().getOrDefault("LockpickItem.DefaultLockItem.customModelData", 8793);
+        return Cfg.get().getOrDefault("LockpickItem.DefaultLockpickItem.customModelData", 8793);
     }
 
     public static Component getDefaultLockpickItemDisplayName() {
         return ColorParser.of(
-            Cfg.get().getOrDefault("LockpickItem.DefaultLockItem.displayName", "<gray><b>Lockpick")
+            Cfg.get().getOrDefault("LockpickItem.DefaultLockpickItem.displayName", "<gray><b>Lockpick")
         ).build().decoration(TextDecoration.ITALIC, false);
     }
 
     public static List<Component> getDefaultLockItemLore() {
-        List<String> loreStrings = Cfg.get().getStringList("LockpickItem.DefaultLockItem.lore");
+        List<String> loreStrings = Cfg.get().getStringList("LockpickItem.DefaultLockpickItem.lore");
         List<Component> loreComponents = new ArrayList<>();
         if (loreStrings == null || loreStrings.isEmpty()) {
             return List.of(Component.empty());
@@ -134,4 +134,30 @@ public class Settings {
             .pitch(pitch)
             .build();
     }
+
+    public static boolean areCraftBookGatesLockpickable() {
+        return Cfg.get().getOrDefault("CraftBookCompatibility.Gate.enabled", false);
+    }
+
+    public static double getCraftBookGateChance() {
+        return Cfg.get().getOrDefault("CraftBookCompatibility.Gate.chance", 0.2);
+    }
+
+    public static boolean areCraftBookDoorsLockpickable() {
+        return Cfg.get().getOrDefault("CraftBookCompatibility.Door.enabled", false);
+    }
+
+    public static double getCraftBookDoorChance() {
+        return Cfg.get().getOrDefault("CraftBookCompatibility.Door.chance", 0.2);
+    }
+
+    public static boolean areCraftBookBridgesLockpickable() {
+        return Cfg.get().getOrDefault("CraftBookCompatibility.Bridge.enabled", false);
+    }
+
+    public static double getCraftBookBridgeChance() {
+        return Cfg.get().getOrDefault("CraftBookCompatibility.Bridge.chance", 0.2);
+    }
+
+
 }

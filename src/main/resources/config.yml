@@ -48,7 +48,7 @@ LockpickItem:
   customLockItemID: ""
   # The default lockpick item if no item plugin is specified
   # Uses MiniMessage color formats
-  DefaultLockItem:
+  DefaultLockpickItem:
     material: STICK
     customModelData: 8793
     displayName: "<gray><b>Lockpick"

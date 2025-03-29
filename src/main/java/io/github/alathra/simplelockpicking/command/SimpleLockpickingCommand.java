@@ -16,9 +16,9 @@ import org.bukkit.entity.Player;
 class SimpleLockpickingCommand {
 
     protected SimpleLockpickingCommand() {
-        new CommandAPICommand("boltux")
-            .withFullDescription("BoltUX commands.")
-            .withShortDescription("BoltUX commands.")
+        new CommandAPICommand("simplelockpicking")
+            .withFullDescription("Simplelockpicking commands.")
+            .withShortDescription("Simplelockpicking commands.")
             .withPermission(SimpleLockpicking.ADMIN_PERMISSION)
             .withSubcommands(
                 GetLockCommand()
