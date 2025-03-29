@@ -10,10 +10,13 @@ GeneralSettings:
     - world_nether
     - world_the_end
   # The chance of successfully using a lockpick
+  # "woodenDoors" and "woodenTrapdoors" and "fenceGates" includes bamboo variants
   lockpickChances:
     barrels: 0.2
     chestBoats: 0.2
     chests: 0.2
+    copperDoors: 0.15
+    copperTrapdoors: 0.15
     fenceGates: 0.2
     ironDoors: 0.1
     ironTrapdoors: 0.1
@@ -29,19 +32,20 @@ GeneralSettings:
   disableLockpicking:
     #- OAK_DOOR
     #- OAK_TRAPDOOR
-    #- OAK_BOAT
+    #- OAK_FENCE_GATE
+    #- OAK_CHEST_BOAT
 
 LockpickItem:
-  # Possible entries are "ItemsAdder", "Nexo", "Oraxen" or "None". Leave blank or use "None" to use the default lockpick item
-  itemPlugin: ""
-  # The identifier of the custom lockpick item. Only applicable if using an item plugin defined above
-  customLockItemID: ""
   # The sound made when a player uses a lockpick
   sound:
     enabled: true
-    effect: "minecraft:entity.zombie.attack_iron_door"
+    effect: "minecraft:item.flintandsteel.use"
     volume: 1.0
-    pitch: 1.0
+    pitch: 1.5
+  # Possible entries are "ItemsAder", "Nexo", "Oraxen" or "None". Leave blank or use "None" to use the default lockpick item
+  itemPlugin: ""
+  # The identifier of the custom lockpick item. Only applicable if using an item plugin defined above
+  customLockItemID: ""
   # The default lockpick item if no item plugin is specified
   # Uses MiniMessage color formats
   DefaultLockItem:

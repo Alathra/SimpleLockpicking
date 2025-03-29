@@ -27,6 +27,8 @@ public class SimpleLockpicking extends JavaPlugin {
         return instance;
     }
 
+    public static final String ADMIN_PERMISSION = "simplelockpicking.admin";
+
     @Override
     public void onLoad() {
         instance = this;
