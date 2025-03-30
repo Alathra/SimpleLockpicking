@@ -1,6 +1,7 @@
 package io.github.alathra.simplelockpicking.config;
 
 import com.destroystokyo.paper.MaterialTags;
+import io.github.alathra.simplelockpicking.data.EntityGroups;
 import io.github.alathra.simplelockpicking.data.ItemPlugin;
 import io.github.alathra.simplelockpicking.data.MaterialGroups;
 import io.github.alathra.simplelockpicking.utility.Cfg;
@@ -13,6 +14,7 @@ import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.entity.EntityType;
 import org.intellij.lang.annotations.Subst;
 
 import java.util.ArrayList;
@@ -30,27 +32,58 @@ public class Settings {
             .collect(Collectors.toList());
     }
 
-    public static Map<Material, Double> getLockpickChances() {
+    public static Map<Material, Double> getLockpickChancesForBlocks() {
         Map<Material, Double> lockpickChancesMap = new HashMap<>();
-        lockpickChancesMap.put(Material.BARREL, Cfg.get().getDouble("GeneralSettings.lockpickChances.barrels"));
-        MaterialGroups.getChestBoats().forEach(material -> lockpickChancesMap.put(material, Cfg.get().getDouble("GeneralSettings.lockpickChances.chestBoats")));
-        lockpickChancesMap.put(Material.CHEST, Cfg.get().getDouble("GeneralSettings.lockpickChances.chests"));
-        MaterialGroups.getCopperDoors().forEach(material -> lockpickChancesMap.put(material, Cfg.get().getDouble("GeneralSettings.lockpickChances.copperDoors")));
-        MaterialGroups.getCopperTrapdoors().forEach(material -> lockpickChancesMap.put(material, Cfg.get().getDouble("GeneralSettings.lockpickChances.copperTrapdoors")));
-        MaterialTags.FENCE_GATES.getValues().forEach(material -> lockpickChancesMap.put(material, Cfg.get().getDouble("GeneralSettings.lockpickChances.fenceGates")));
-        lockpickChancesMap.put(Material.IRON_DOOR, Cfg.get().getDouble("GeneralSettings.lockpickChances.ironDoors"));
-        lockpickChancesMap.put(Material.IRON_TRAPDOOR, Cfg.get().getDouble("GeneralSettings.lockpickChances.ironTrapdoors"));
-        MaterialTags.SHULKER_BOXES.getValues().forEach(material -> lockpickChancesMap.put(material, Cfg.get().getDouble("GeneralSettings.lockpickChances.shulkers")));
-        lockpickChancesMap.put(Material.TRAPPED_CHEST, Cfg.get().getDouble("GeneralSettings.lockpickChances.trappedChests"));
-        MaterialTags.WOODEN_DOORS.getValues().forEach(material -> lockpickChancesMap.put(material, Cfg.get().getDouble("GeneralSettings.lockpickChances.woodenDoors")));
-        lockpickChancesMap.put(Material.BAMBOO_DOOR, Cfg.get().getDouble("GeneralSettings.lockpickChances.woodenDoors"));
-        MaterialTags.WOODEN_TRAPDOORS.getValues().forEach(material -> lockpickChancesMap.put(material, Cfg.get().getDouble("GeneralSettings.lockpickChances.woodenTrapdoors")));
-        lockpickChancesMap.put(Material.BAMBOO_TRAPDOOR, Cfg.get().getDouble("GeneralSettings.lockpickChances.woodenTrapdoors"));
+        lockpickChancesMap.put(Material.BARREL, Cfg.get().getDouble("GeneralSettings.LockpickChances.barrels"));
+        lockpickChancesMap.put(Material.CHEST, Cfg.get().getDouble("GeneralSettings.LockpickChances.chests"));
+        MaterialGroups.getCopperDoors().forEach(material -> lockpickChancesMap.put(material, Cfg.get().getDouble("GeneralSettings.LockpickChances.copperDoors")));
+        MaterialGroups.getCopperTrapdoors().forEach(material -> lockpickChancesMap.put(material, Cfg.get().getDouble("GeneralSettings.LockpickChances.copperTrapdoors")));
+        MaterialTags.FENCE_GATES.getValues().forEach(material -> lockpickChancesMap.put(material, Cfg.get().getDouble("GeneralSettings.LockpickChances.fenceGates")));
+        lockpickChancesMap.put(Material.IRON_DOOR, Cfg.get().getDouble("GeneralSettings.LockpickChances.ironDoors"));
+        lockpickChancesMap.put(Material.IRON_TRAPDOOR, Cfg.get().getDouble("GeneralSettings.LockpickChances.ironTrapdoors"));
+        MaterialTags.SHULKER_BOXES.getValues().forEach(material -> lockpickChancesMap.put(material, Cfg.get().getDouble("GeneralSettings.LockpickChances.shulkers")));
+        lockpickChancesMap.put(Material.TRAPPED_CHEST, Cfg.get().getDouble("GeneralSettings.LockpickChances.trappedChests"));
+        MaterialTags.WOODEN_DOORS.getValues().forEach(material -> lockpickChancesMap.put(material, Cfg.get().getDouble("GeneralSettings.LockpickChances.woodenDoors")));
+        lockpickChancesMap.put(Material.BAMBOO_DOOR, Cfg.get().getDouble("GeneralSettings.LockpickChances.woodenDoors"));
+        MaterialTags.WOODEN_TRAPDOORS.getValues().forEach(material -> lockpickChancesMap.put(material, Cfg.get().getDouble("GeneralSettings.LockpickChances.woodenTrapdoors")));
+        lockpickChancesMap.put(Material.BAMBOO_TRAPDOOR, Cfg.get().getDouble("GeneralSettings.LockpickChances.woodenTrapdoors"));
         return lockpickChancesMap;
     }
 
+    public static Map<EntityType, Double> getLockpickChancesForEntities() {
+        Map<EntityType, Double> lockpickChancesMap = new HashMap<>();
+        EntityGroups.getChestBoats().forEach(entityType -> lockpickChancesMap.put(entityType, Cfg.get().getDouble("GeneralSettings.LockpickChances.chestBoats")));
+        lockpickChancesMap.put(EntityType.CHEST_MINECART, Cfg.get().getDouble("GeneralSettings.LockpickChances.chestMinecarts"));
+        return lockpickChancesMap;
+    }
+
+    public static int getLockpickSeconds() {
+        return Cfg.get().getOrDefault("GeneralSettings.lockpickSeconds", 5);
+    }
+
     public static int getSecondsUntilClosesAgain() {
-        return Cfg.get().getInt("GeneralSettings.secondsUntilClosesAgain");
+        return Cfg.get().getOrDefault("GeneralSettings.secondsUntilClosesAgain", 5);
+    }
+
+    public static boolean isDefaultLockpickCraftingRecipeEnabled() {
+        return Cfg.get().getOrDefault("GeneralSettings.enableDefaultLockpickCraftingRecipe", false);
+    }
+
+    public static boolean isLockpickingSoundEnabled() {
+        return Cfg.get().getOrDefault("GeneralSettings.LockpickSound.enabled", false);
+    }
+
+    public static Sound getLockpickingSound() {
+        @Subst("minecraft:item.flintandsteel.use") String soundID = Cfg.get().getOrDefault("GeneralSettings.LockpickSound.effect", "minecraft:item.flintandsteel.use");
+        float volume = Cfg.get().getOrDefault("GeneralSettings.LockpickSound.volume", 1.0).floatValue();
+        float pitch = Cfg.get().getOrDefault("GeneralSettings.LockpickSound.pitch", 1.0).floatValue();
+
+        return Sound.sound()
+            .type(Key.key(soundID))
+            .source(Sound.Source.BLOCK)
+            .volume(volume)
+            .pitch(pitch)
+            .build();
     }
 
     public static List<Material> getDisabledLockpickingMaterials() {
@@ -116,23 +149,6 @@ public class Settings {
             }
         }
         return loreComponents;
-    }
-
-    public static boolean isLockpickingSoundEnabled() {
-        return Cfg.get().getOrDefault("LockpickItem.sound.enabled", false);
-    }
-
-    public static Sound getLockpickingSound() {
-        @Subst("minecraft:item.flintandsteel.use") String soundID = Cfg.get().getOrDefault("LockpickItem.sound.effect", "minecraft:item.flintandsteel.use");
-        float volume = Cfg.get().getOrDefault("LockpickItem.sound.volume", 1.0).floatValue();
-        float pitch = Cfg.get().getOrDefault("LockpickItem.sound.pitch", 1.0).floatValue();
-
-        return Sound.sound()
-            .type(Key.key(soundID))
-            .source(Sound.Source.BLOCK)
-            .volume(volume)
-            .pitch(pitch)
-            .build();
     }
 
     public static boolean areCraftBookGatesLockpickable() {

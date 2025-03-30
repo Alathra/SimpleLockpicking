@@ -5,20 +5,6 @@ import org.bukkit.Material;
 import java.util.List;
 
 public class MaterialGroups {
-    public static List<Material> getChestBoats() {
-        return List.of(
-            Material.ACACIA_BOAT,
-            Material.BAMBOO_CHEST_RAFT,
-            Material.BIRCH_CHEST_BOAT,
-            Material.CHERRY_CHEST_BOAT,
-            Material.DARK_OAK_CHEST_BOAT,
-            Material.JUNGLE_CHEST_BOAT,
-            Material.MANGROVE_CHEST_BOAT,
-            Material.OAK_CHEST_BOAT,
-            Material.PALE_OAK_CHEST_BOAT,
-            Material.SPRUCE_CHEST_BOAT
-        );
-    }
 
     public static List<Material> getCopperDoors() {
         return List.of(

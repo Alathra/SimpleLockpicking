@@ -11,9 +11,10 @@ GeneralSettings:
     - world_the_end
   # The chance of successfully using a lockpick
   # "woodenDoors" and "woodenTrapdoors" and "fenceGates" includes bamboo variants
-  lockpickChances:
+  LockpickChances:
     barrels: 0.2
     chestBoats: 0.2
+    chestMinecarts: 0.2
     chests: 0.2
     copperDoors: 0.15
     copperTrapdoors: 0.15
@@ -24,11 +25,21 @@ GeneralSettings:
     trappedChests: 0.2
     woodenDoors: 0.2
     woodenTrapdoors: 0.2
+  # The amount of time it takes for a lockpick something
+  lockpickSeconds: 5
   # The amount of seconds until doors/gates/trapdoors auto-close after being forced open by a lockpick
   # Set to 0 to disable this feature
   secondsUntilClosesAgain: 5
+  # If the default lockpick crafting recipe will be enabled
+  enableDefaultLockpickCraftingRecipe: true
+  # The sound made when a player uses a lockpick
+  LockpickSound:
+    enabled: true
+    effect: "minecraft:item.flintandsteel.use"
+    volume: 1.0
+    pitch: 1.5
   # Disables lockpicking for the given blocks/entities
-  # A list of materials can be found here: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html?utm_source=chatgpt.com
+  # A list of materials can be found here: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html
   disableLockpicking:
     #- OAK_DOOR
     #- OAK_TRAPDOOR
@@ -36,12 +47,6 @@ GeneralSettings:
     #- OAK_CHEST_BOAT
 
 LockpickItem:
-  # The sound made when a player uses a lockpick
-  sound:
-    enabled: true
-    effect: "minecraft:item.flintandsteel.use"
-    volume: 1.0
-    pitch: 1.5
   # Possible entries are "ItemsAder", "Nexo", "Oraxen" or "None". Leave blank or use "None" to use the default lockpick item
   itemPlugin: ""
   # The identifier of the custom lockpick item. Only applicable if using an item plugin defined above

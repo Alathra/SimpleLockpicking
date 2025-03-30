@@ -7,18 +7,10 @@ import org.bukkit.event.Listener;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * A class to handle registration of event listeners.
- */
 public class ListenerHandler implements Reloadable {
     private final SimpleLockpicking plugin;
     private final List<Listener> listeners = new ArrayList<>();
 
-    /**
-     * Instantiates the Listener handler.
-     *
-     * @param plugin the plugin instance
-     */
     public ListenerHandler(SimpleLockpicking plugin) {
         this.plugin = plugin;
     }
@@ -30,7 +22,8 @@ public class ListenerHandler implements Reloadable {
     @Override
     public void onEnable(SimpleLockpicking plugin) {
         listeners.clear(); // Clear the list to avoid duplicate listeners when reloading the plugin
-//        listeners.add(new ExampleListener());
+        listeners.add(new CraftingListener());
+        listeners.add(new LockpickListener(plugin));
 
         // Register listeners here
         for (Listener listener : listeners) {

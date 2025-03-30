@@ -2,8 +2,8 @@ package io.github.alathra.simplelockpicking.command;
 
 import dev.jorel.commandapi.arguments.ArgumentSuggestions;
 import dev.jorel.commandapi.arguments.IntegerArgument;
-import io.github.alathra.simplelockpicking.SimpleLockpicking;
 import io.github.alathra.simplelockpicking.api.SimpleLockpickingAPI;
+import io.github.alathra.simplelockpicking.data.Permissions;
 import io.github.milkdrinkers.colorparser.ColorParser;
 import dev.jorel.commandapi.CommandAPICommand;
 import dev.jorel.commandapi.executors.CommandArguments;
@@ -19,7 +19,7 @@ class SimpleLockpickingCommand {
         new CommandAPICommand("simplelockpicking")
             .withFullDescription("Simplelockpicking commands.")
             .withShortDescription("Simplelockpicking commands.")
-            .withPermission(SimpleLockpicking.ADMIN_PERMISSION)
+            .withPermission(Permissions.getAdminPermission())
             .withSubcommands(
                 GetLockCommand()
             )
@@ -36,7 +36,7 @@ class SimpleLockpickingCommand {
         return new CommandAPICommand("getlockpick")
             .withFullDescription("Gives yourself the lockpick item.")
             .withShortDescription("Gives lockpick item.")
-            .withPermission(SimpleLockpicking.ADMIN_PERMISSION)
+            .withPermission(Permissions.getAdminPermission())
             .withOptionalArguments(
                 new IntegerArgument("amount")
                     .replaceSuggestions(ArgumentSuggestions.strings("64", "32", "16"))
