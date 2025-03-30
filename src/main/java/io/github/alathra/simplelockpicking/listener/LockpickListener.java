@@ -10,8 +10,8 @@ import io.github.alathra.simplelockpicking.core.LockpickingManager;
 import io.github.alathra.simplelockpicking.data.EntityGroups;
 import io.github.alathra.simplelockpicking.data.MaterialGroups;
 import io.github.alathra.simplelockpicking.data.Permissions;
+import io.github.alathra.simplelockpicking.hook.Hook;
 import io.github.milkdrinkers.colorparser.ColorParser;
-import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -89,6 +89,19 @@ public class LockpickListener implements Listener {
         if (!LockpickingManager.registerActiveLockpick(activeLockpick)) {
             return;
         }
+        if (!activeLockpick.isNotContainer()) {
+            if (Hook.Towny.isLoaded()) {
+                if (Hook.getTownyHook().isLocationInOwnTown(block.getLocation(), player)) {
+                    player.sendMessage(ColorParser.of("<red>You cannot lockpick containers in your own town").build());
+                    LockpickingManager.deRegisterActiveLockpick(activeLockpick);
+                    return;
+                } else if (Hook.getTownyHook().isLocationInAnyTown(block.getLocation())) {
+                    player.sendMessage(ColorParser.of("<red>You cannot lockpick containers within town claims").build());
+                    LockpickingManager.deRegisterActiveLockpick(activeLockpick);
+                    return;
+                }
+            }
+        }
         // Initiate lockpicking
         activeLockpick.startLockpicking();
         event.setCancelled(true);
@@ -127,10 +140,23 @@ public class LockpickListener implements Listener {
             player.sendMessage(ColorParser.of("<red>You are already lockpicking this").build());
             return;
         }
-        ActiveEntityLockpick activeLockpick = new ActiveEntityLockpick(entity, player);
+        ActiveLockpick activeLockpick = new ActiveEntityLockpick(entity, player);
         // If fails to register, abort
         if (!LockpickingManager.registerActiveLockpick(activeLockpick)) {
             return;
+        }
+        if (!activeLockpick.isNotContainer()) {
+            if (Hook.Towny.isLoaded()) {
+                if (Hook.getTownyHook().isLocationInOwnTown(entity.getLocation(), player)) {
+                    player.sendMessage(ColorParser.of("<red>You cannot lockpick containers in your own town").build());
+                    LockpickingManager.deRegisterActiveLockpick(activeLockpick);
+                    return;
+                } else if (Hook.getTownyHook().isLocationInAnyTown(entity.getLocation())) {
+                    player.sendMessage(ColorParser.of("<red>You cannot lockpick containers within town claims").build());
+                    LockpickingManager.deRegisterActiveLockpick(activeLockpick);
+                    return;
+                }
+            }
         }
         // Initiate lockpicking
         activeLockpick.startLockpicking();

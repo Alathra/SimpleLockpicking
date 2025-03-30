@@ -1,5 +1,6 @@
 package io.github.alathra.simplelockpicking.hook;
 
+import io.github.alathra.simplelockpicking.hook.towny.TownyHook;
 import io.github.milkdrinkers.colorparser.ColorParser;
 import io.github.alathra.simplelockpicking.SimpleLockpicking;
 import io.github.alathra.simplelockpicking.Reloadable;

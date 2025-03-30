@@ -5,12 +5,11 @@ import io.github.alathra.simplelockpicking.config.Settings;
 import io.github.alathra.simplelockpicking.hook.AbstractHook;
 import io.github.alathra.simplelockpicking.hook.Hook;
 import io.th0rgal.oraxen.api.OraxenItems;
-import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.Nullable;
 
 
-public class OraxenHook extends AbstractHook implements Listener {
+public class OraxenHook extends AbstractHook {
 
     public OraxenHook(SimpleLockpicking plugin) {
         super(plugin);

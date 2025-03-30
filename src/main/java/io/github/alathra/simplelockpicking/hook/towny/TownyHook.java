@@ -1,15 +1,16 @@
 package io.github.alathra.simplelockpicking.hook.towny;
 
+import com.palmergames.bukkit.towny.TownyAPI;
+import com.palmergames.bukkit.towny.object.Resident;
 import com.palmergames.bukkit.towny.object.Town;
 import com.palmergames.bukkit.towny.object.WorldCoord;
 import io.github.alathra.simplelockpicking.SimpleLockpicking;
 import io.github.alathra.simplelockpicking.hook.AbstractHook;
 import io.github.alathra.simplelockpicking.hook.Hook;
 import org.bukkit.Location;
-import org.bukkit.event.Listener;
+import org.bukkit.entity.Player;
 
-
-public class TownyHook extends AbstractHook implements Listener {
+public class TownyHook extends AbstractHook {
 
     public TownyHook(SimpleLockpicking plugin) {
         super(plugin);
@@ -41,6 +42,18 @@ public class TownyHook extends AbstractHook implements Listener {
             return false;
         }
         return townAtLocation.equals(town);
+    }
+
+    public boolean isLocationInOwnTown(Location location, Player player) {
+        Resident resident = TownyAPI.getInstance().getResident(player.getUniqueId());
+        if (resident == null) {
+            return false;
+        }
+        Town town = resident.getTownOrNull();
+        if (town == null) {
+            return false;
+        }
+        return isLocationInTown(location, town);
     }
 
 }

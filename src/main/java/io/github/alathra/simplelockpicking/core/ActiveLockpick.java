@@ -37,16 +37,13 @@ public abstract class ActiveLockpick {
             entity = null;
             hitChance = Settings.getLockpickChancesForBlocks().get(activeBlockLockpick.getBlock().getType()) > Math.random();
             block = activeBlockLockpick.getBlock();
-        } else {
+        } else if (this instanceof ActiveEntityLockpick activeEntityLockpick) {
             block = null;
-            if (this instanceof ActiveEntityLockpick activeEntityLockpick) {
-                hitChance = Settings.getLockpickChancesForEntities().get(activeEntityLockpick.getEntity().getType()) > Math.random();
-                entity = activeEntityLockpick.getEntity();
-            } else {
-                entity = null;
-                LockpickingManager.deRegisterActiveLockpick(this);
-                return;
-            }
+            hitChance = Settings.getLockpickChancesForEntities().get(activeEntityLockpick.getEntity().getType()) > Math.random();
+            entity = activeEntityLockpick.getEntity();
+        } else {
+            LockpickingManager.deRegisterActiveLockpick(this);
+            return;
         }
         Bukkit.getScheduler().runTaskLater(SimpleLockpicking.getInstance(), () -> {
             if (hitChance) {

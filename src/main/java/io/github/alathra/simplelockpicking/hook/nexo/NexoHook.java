@@ -5,14 +5,13 @@ import io.github.alathra.simplelockpicking.SimpleLockpicking;
 import io.github.alathra.simplelockpicking.config.Settings;
 import io.github.alathra.simplelockpicking.hook.AbstractHook;
 import io.github.alathra.simplelockpicking.hook.Hook;
-import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
 
 
-public class NexoHook extends AbstractHook implements Listener {
+public class NexoHook extends AbstractHook {
 
     public NexoHook(SimpleLockpicking plugin) {
         super(plugin);
