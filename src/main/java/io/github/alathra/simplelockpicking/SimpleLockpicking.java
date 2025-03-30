@@ -1,6 +1,5 @@
 package io.github.alathra.simplelockpicking;
 
-import io.github.alathra.simplelockpicking.core.LockpickingManager;
 import io.github.alathra.simplelockpicking.hook.HookManager;
 import io.github.alathra.simplelockpicking.command.CommandHandler;
 import io.github.alathra.simplelockpicking.config.ConfigHandler;
@@ -23,9 +22,6 @@ public class SimpleLockpicking extends JavaPlugin {
 
     // Handlers list (defines order of load/enable/disable)
     private List<? extends Reloadable> handlers;
-
-    // Managers
-    private LockpickingManager lockpickingManager;
 
     public static SimpleLockpicking getInstance() {
         return instance;
@@ -55,8 +51,6 @@ public class SimpleLockpicking extends JavaPlugin {
     public void onEnable() {
         for (Reloadable handler : handlers)
             handler.onEnable(instance);
-
-        lockpickingManager = new LockpickingManager(this);
     }
 
     @Override
@@ -92,7 +86,4 @@ public class SimpleLockpicking extends JavaPlugin {
     public HookManager getHookManager() {
         return hookManager;
     }
-
-    @NotNull
-    public LockpickingManager getLockpickingManager() { return lockpickingManager; }
 }

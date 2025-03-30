@@ -1,11 +1,6 @@
 package io.github.alathra.simplelockpicking.core;
 
-import io.github.alathra.simplelockpicking.SimpleLockpicking;
-import io.github.alathra.simplelockpicking.config.Settings;
 import io.github.alathra.simplelockpicking.data.EntityGroups;
-import io.github.milkdrinkers.colorparser.ColorParser;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.ChestBoat;
 import org.bukkit.entity.Entity;
@@ -36,12 +31,8 @@ public class ActiveEntityLockpick extends ActiveLockpick {
     }
 
     @Override
-    public boolean shouldToggleTwice() {
+    public boolean isNotContainer() {
         return false;
-    }
-
-    @Override
-    public void startLockpicking(Location location) {
     }
 
     public Entity getEntity() {

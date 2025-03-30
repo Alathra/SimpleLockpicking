@@ -65,6 +65,10 @@ public class Settings {
         return Cfg.get().getOrDefault("GeneralSettings.secondsUntilClosesAgain", 5);
     }
 
+    public static int getSecondsUntilToggleable() {
+        return Cfg.get().getOrDefault("GeneralSettings.secondsUntilToggleable", 5);
+    }
+
     public static boolean isDefaultLockpickCraftingRecipeEnabled() {
         return Cfg.get().getOrDefault("GeneralSettings.enableDefaultLockpickCraftingRecipe", false);
     }
@@ -86,9 +90,13 @@ public class Settings {
             .build();
     }
 
-    public static List<Material> getDisabledLockpickingMaterials() {
+    public static boolean isLockpickBreakEffectEnabled() {
+        return Cfg.get().getOrDefault("GeneralSettings.enableLockpickBreakEffect", false);
+    }
+
+    public static List<Material> getDisabledLockpickingBlocks() {
         List<Material> disabledLockpickingMaterials = new ArrayList<>();
-        List<String> raw = Cfg.get().getStringList("GeneralSettings.disableLockpicking");
+        List<String> raw = Cfg.get().getStringList("GeneralSettings.disableLockpickingForBlocks");
         raw.forEach(string -> {
             try {
                 disabledLockpickingMaterials.add(Material.valueOf(string));
@@ -96,6 +104,18 @@ public class Settings {
             }
         });
         return disabledLockpickingMaterials;
+    }
+
+    public static List<EntityType> getDisabledLockpickingEntities() {
+        List<EntityType> disabledLockpickingEntityTypes = new ArrayList<>();
+        List<String> raw = Cfg.get().getStringList("GeneralSettings.disableLockpickingForEntities");
+        raw.forEach(string -> {
+            try {
+                disabledLockpickingEntityTypes.add(EntityType.valueOf(string));
+            } catch (IllegalArgumentException ignored) {
+            }
+        });
+        return disabledLockpickingEntityTypes;
     }
 
     public static ItemPlugin getItemPlugin() {

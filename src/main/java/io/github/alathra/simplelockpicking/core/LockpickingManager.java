@@ -1,26 +1,21 @@
 package io.github.alathra.simplelockpicking.core;
 
-import io.github.alathra.simplelockpicking.SimpleLockpicking;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.HashSet;
 import java.util.Set;
 
 public class LockpickingManager {
 
-    private final SimpleLockpicking plugin;
-    private final Set<ActiveLockpick> activeLockpicks = new HashSet<>();
+    private static final Set<ActiveLockpick> activeLockpicks = new HashSet<>();
 
-    public LockpickingManager(SimpleLockpicking plugin) {
-        this.plugin = plugin;
-    }
-
-    public Set<ActiveLockpick> getActiveLockpicks() {
+    public static Set<ActiveLockpick> getActiveLockpicks() {
         return activeLockpicks;
     }
 
-    public boolean registerActiveLockpick(ActiveLockpick newActiveLockpick) {
+    public static boolean registerActiveLockpick(ActiveLockpick newActiveLockpick) {
         if (newActiveLockpick instanceof ActiveBlockLockpick newActiveBlockLockpick) {
             for (ActiveLockpick activeLockpick : activeLockpicks) {
                 if (activeLockpick instanceof ActiveBlockLockpick activeBlockLockpick) {
@@ -43,11 +38,11 @@ public class LockpickingManager {
         return true;
     }
 
-    public void deRegisterActiveLockpick(ActiveLockpick activeLockpick) {
+    public static void deRegisterActiveLockpick(ActiveLockpick activeLockpick) {
         activeLockpicks.remove(activeLockpick);
     }
 
-    public boolean isGettingLockpicked(Block block) {
+    public static boolean isGettingLockpicked(Block block) {
         for (ActiveLockpick activeLockpick : activeLockpicks) {
             if (activeLockpick instanceof ActiveBlockLockpick activeBlockLockpick) {
                 if (activeBlockLockpick.getBlock().equals(block)) {
@@ -58,7 +53,18 @@ public class LockpickingManager {
         return false;
     }
 
-    public boolean isGettingLockpicked(Entity entity) {
+    public static @Nullable ActiveBlockLockpick getActiveLockpick(Block block) {
+        for (ActiveLockpick activeLockpick : activeLockpicks) {
+            if (activeLockpick instanceof ActiveBlockLockpick activeBlockLockpick) {
+                if (activeBlockLockpick.getBlock().equals(block)) {
+                    return activeBlockLockpick;
+                }
+            }
+        }
+        return null;
+    }
+
+    public static boolean isGettingLockpicked(Entity entity) {
         for (ActiveLockpick activeLockpick : activeLockpicks) {
             if (activeLockpick instanceof ActiveEntityLockpick activeEntityLockpick) {
                 if (activeEntityLockpick.getEntity().getEntityId() == entity.getEntityId()) {
@@ -67,5 +73,16 @@ public class LockpickingManager {
             }
         }
         return false;
+    }
+
+    public static @Nullable ActiveEntityLockpick getActiveLockpick(Entity entity) {
+        for (ActiveLockpick activeLockpick : activeLockpicks) {
+            if (activeLockpick instanceof ActiveEntityLockpick activeEntityLockpick) {
+                if (activeEntityLockpick.getEntity().getEntityId() == entity.getEntityId()) {
+                    return activeEntityLockpick;
+                }
+            }
+        }
+        return null;
     }
 }
