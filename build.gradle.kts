@@ -40,6 +40,7 @@ repositories {
     maven("https://maven.devs.beer/") // ItemsAdderAPI
     maven("https://repo.nexomc.com/releases") // Nexo
     maven("https://repo.oraxen.com/releases") // Oraxen
+    maven("https://maven.enginehub.org/repo/") // WorldEdit
 }
 
 dependencies {
@@ -70,6 +71,7 @@ dependencies {
     compileOnly(libs.itemsadder)
     compileOnly(libs.nexo)
     compileOnly(libs.oraxen)
+    compileOnly(libs.worldedit)
     compileOnly((files("${project.projectDir}/libs/craftbook-bukkit-5.0.0-beta-04.jar")))
 
     // Testing - Core

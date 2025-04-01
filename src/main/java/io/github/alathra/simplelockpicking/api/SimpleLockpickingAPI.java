@@ -1,9 +1,14 @@
 package io.github.alathra.simplelockpicking.api;
 
 import io.github.alathra.simplelockpicking.config.Settings;
+import io.github.alathra.simplelockpicking.core.*;
 import io.github.alathra.simplelockpicking.hook.Hook;
+import io.github.alathra.simplelockpicking.hook.craftbook.WrappedMechanic;
+import org.bukkit.block.Block;
+import org.bukkit.entity.Entity;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
 
@@ -72,5 +77,73 @@ public class SimpleLockpickingAPI {
         lockMeta.setCustomModelData(Settings.getDefaultLockpickItemCustomModelData());
         lockItem.setItemMeta(lockMeta);
         return lockItem;
+    }
+
+    public static boolean isGettingLockpicked(Block block) {
+        for (ActiveLockpick activeLockpick : LockpickingManager.getActiveLockpicks()) {
+            if (activeLockpick instanceof ActiveBlockLockpick activeBlockLockpick) {
+                if (activeBlockLockpick.getBlock().equals(block)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public static @Nullable ActiveBlockLockpick getActiveLockpick(Block block) {
+        for (ActiveLockpick activeLockpick : LockpickingManager.getActiveLockpicks()) {
+            if (activeLockpick instanceof ActiveBlockLockpick activeBlockLockpick) {
+                if (activeBlockLockpick.getBlock().equals(block)) {
+                    return activeBlockLockpick;
+                }
+            }
+        }
+        return null;
+    }
+
+    public static boolean isGettingLockpicked(Entity entity) {
+        for (ActiveLockpick activeLockpick : LockpickingManager.getActiveLockpicks()) {
+            if (activeLockpick instanceof ActiveEntityLockpick activeEntityLockpick) {
+                if (activeEntityLockpick.getEntity().getEntityId() == entity.getEntityId()) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public static @Nullable ActiveEntityLockpick getActiveLockpick(Entity entity) {
+        for (ActiveLockpick activeLockpick : LockpickingManager.getActiveLockpicks()) {
+            if (activeLockpick instanceof ActiveEntityLockpick activeEntityLockpick) {
+                if (activeEntityLockpick.getEntity().equals(entity)) {
+                    if (activeEntityLockpick.getEntity().getEntityId() == entity.getEntityId()) {
+                        return activeEntityLockpick;
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    public static boolean isGettingLockpicked(WrappedMechanic wrappedMechanic) {
+        for (ActiveLockpick activeLockpick : LockpickingManager.getActiveLockpicks()) {
+            if (activeLockpick instanceof ActiveMechanicLockpick activeMechanicLockpick) {
+                if (activeMechanicLockpick.getWrappedMechanic().getMechanic().getMechanicType().id().contentEquals(wrappedMechanic.getMechanic().getMechanicType().id())) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public static @Nullable ActiveMechanicLockpick getActiveLockpick(WrappedMechanic wrappedMechanic) {
+        for (ActiveLockpick activeLockpick : LockpickingManager.getActiveLockpicks()) {
+            if (activeLockpick instanceof ActiveMechanicLockpick activeMechanicLockpick) {
+                if (activeMechanicLockpick.getWrappedMechanic().getMechanic().getMechanicType().id().contentEquals(wrappedMechanic.getMechanic().getMechanicType().id())) {
+                    return activeMechanicLockpick;
+                }
+            }
+        }
+        return null;
     }
 }

@@ -5,8 +5,6 @@ import io.github.alathra.simplelockpicking.api.SimpleLockpickingAPI;
 import io.github.alathra.simplelockpicking.config.Settings;
 import io.github.milkdrinkers.colorparser.ColorParser;
 import org.bukkit.*;
-import org.bukkit.block.Block;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
 public abstract class ActiveLockpick {
@@ -22,7 +20,10 @@ public abstract class ActiveLockpick {
     }
 
     public abstract void toggle();
-    public abstract boolean isNotContainer();
+    public abstract boolean isContainer();
+    public abstract boolean isMultiBlock();
+    public abstract boolean isSuccessful();
+    public abstract void lockpickBreakEffect();
 
     public void startLockpicking() {
         player.sendMessage(ColorParser.of("<yellow>Attempting to lockpick...").build());
@@ -30,34 +31,19 @@ public abstract class ActiveLockpick {
         player.getInventory().getItemInMainHand().setAmount(player.getInventory().getItemInMainHand().getAmount()-1);
         if (Settings.isLockpickingSoundEnabled())
             player.playSound(Settings.getLockpickingSound());
-        boolean hitChance;
-        Block block;
-        Entity entity;
-        if (this instanceof ActiveBlockLockpick activeBlockLockpick) {
-            entity = null;
-            hitChance = Settings.getLockpickChancesForBlocks().get(activeBlockLockpick.getBlock().getType()) > Math.random();
-            block = activeBlockLockpick.getBlock();
-        } else if (this instanceof ActiveEntityLockpick activeEntityLockpick) {
-            block = null;
-            hitChance = Settings.getLockpickChancesForEntities().get(activeEntityLockpick.getEntity().getType()) > Math.random();
-            entity = activeEntityLockpick.getEntity();
-        } else {
-            LockpickingManager.deRegisterActiveLockpick(this);
-            return;
-        }
         Bukkit.getScheduler().runTaskLater(SimpleLockpicking.getInstance(), () -> {
-            if (hitChance) {
+            if (isSuccessful()) {
                 player.sendMessage(ColorParser.of("<green>Lockpicking was successful").build());
                 // return lockpick to inventory
                 player.getInventory().addItem(SimpleLockpickingAPI.getLockpickItem());
                 toggle();
                 if (Settings.getSecondsUntilToggleable() > 0) {
-                    if (isNotContainer()) {
+                    if (!isContainer()) {
                         isToggleableByPlayers = false;
                         Bukkit.getScheduler().runTaskLater(SimpleLockpicking.getInstance(), () -> isToggleableByPlayers = true, Settings.getSecondsUntilToggleable()*20L);
                     }
                 }
-                if (Settings.getSecondsUntilClosesAgain() > 0 && isNotContainer()) {
+                if (Settings.getSecondsUntilClosesAgain() > 0 && !isContainer() && !isMultiBlock()) {
                     Bukkit.getScheduler().runTaskLater(SimpleLockpicking.getInstance(), () -> {
                         toggle();
                         LockpickingManager.deRegisterActiveLockpick(this);
@@ -68,12 +54,7 @@ public abstract class ActiveLockpick {
             } else {
                 player.sendMessage(ColorParser.of("<red>Your lockpick broke").build());
                 if (Settings.isLockpickBreakEffectEnabled()) {
-                    if (block != null) {
-                        player.getLocation().getWorld().playEffect(block.getLocation(), Effect.STEP_SOUND, Material.IRON_BLOCK);
-                    }
-                    if (entity != null) {
-                        player.getLocation().getWorld().playEffect(entity.getLocation(), Effect.STEP_SOUND, Material.IRON_BLOCK);
-                    }
+                    lockpickBreakEffect();
                 }
                 LockpickingManager.deRegisterActiveLockpick(this);
             }

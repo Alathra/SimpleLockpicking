@@ -1,6 +1,7 @@
 package io.github.alathra.simplelockpicking.core;
 
 import com.destroystokyo.paper.MaterialTags;
+import io.github.alathra.simplelockpicking.config.Settings;
 import io.github.alathra.simplelockpicking.data.MaterialGroups;
 import org.bukkit.*;
 import org.bukkit.block.*;
@@ -167,9 +168,25 @@ public class ActiveBlockLockpick extends ActiveLockpick {
         }
     }
 
-    public boolean isNotContainer() {
-        return !(List.of(Material.BARREL, Material.CHEST, Material.TRAPPED_CHEST).contains(block.getType()) ||
-            MaterialTags.SHULKER_BOXES.isTagged(block.getType()));
+    @Override
+    public boolean isContainer() {
+        return List.of(Material.BARREL, Material.CHEST, Material.TRAPPED_CHEST).contains(block.getType()) ||
+            MaterialTags.SHULKER_BOXES.isTagged(block.getType());
+    }
+
+    @Override
+    public boolean isMultiBlock() {
+        return false;
+    }
+
+    @Override
+    public boolean isSuccessful() {
+        return Settings.getLockpickChancesForBlocks().get(block.getType()) > Math.random();
+    }
+
+    @Override
+    public void lockpickBreakEffect() {
+        block.getWorld().playEffect(block.getLocation(), Effect.STEP_SOUND, Material.IRON_BLOCK);
     }
 
     public Block getBlock() {

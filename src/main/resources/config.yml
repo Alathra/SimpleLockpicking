@@ -70,7 +70,7 @@ LockpickItem:
 
 # These settings only apply if you are running CraftBook3 with SimpleLockPicking
 CraftBookCompatibility:
-  Gate:
+  Bridge:
     # If this CraftBook mechanic can be lockpicked
     enabled: true
     # The chance of successfully using a lockpick on this CraftBook mechanic
@@ -78,6 +78,6 @@ CraftBookCompatibility:
   Door:
     enabled: true
     chance: 0.2
-  Bridge:
+  Gate:
     enabled: true
     chance: 0.2

@@ -5,12 +5,11 @@ import io.github.alathra.simplelockpicking.SimpleLockpicking;
 import io.github.alathra.simplelockpicking.config.Settings;
 import io.github.alathra.simplelockpicking.hook.AbstractHook;
 import io.github.alathra.simplelockpicking.hook.Hook;
-import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.Nullable;
 
 
-public class ItemsAdderHook extends AbstractHook implements Listener {
+public class ItemsAdderHook extends AbstractHook {
 
     public ItemsAdderHook(SimpleLockpicking plugin) {
         super(plugin);

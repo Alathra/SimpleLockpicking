@@ -3,14 +3,12 @@ package io.github.alathra.simplelockpicking.listener;
 import io.github.alathra.simplelockpicking.SimpleLockpicking;
 import io.github.alathra.simplelockpicking.api.SimpleLockpickingAPI;
 import io.github.alathra.simplelockpicking.config.Settings;
-import io.github.alathra.simplelockpicking.core.ActiveBlockLockpick;
-import io.github.alathra.simplelockpicking.core.ActiveEntityLockpick;
-import io.github.alathra.simplelockpicking.core.ActiveLockpick;
-import io.github.alathra.simplelockpicking.core.LockpickingManager;
+import io.github.alathra.simplelockpicking.core.*;
 import io.github.alathra.simplelockpicking.data.EntityGroups;
 import io.github.alathra.simplelockpicking.data.MaterialGroups;
 import io.github.alathra.simplelockpicking.data.Permissions;
 import io.github.alathra.simplelockpicking.hook.Hook;
+import io.github.alathra.simplelockpicking.hook.craftbook.WrappedMechanic;
 import io.github.milkdrinkers.colorparser.ColorParser;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
@@ -50,7 +48,7 @@ public class LockpickListener implements Listener {
         Player player = event.getPlayer();
 
         // Check for toggling a lockpicked non-container
-        ActiveBlockLockpick activeBlockLockpick = LockpickingManager.getActiveLockpick(block);
+        ActiveBlockLockpick activeBlockLockpick = SimpleLockpickingAPI.getActiveLockpick(block);
         if (activeBlockLockpick != null) {
             if (!activeBlockLockpick.isToggleableByPlayers()) {
                 player.sendMessage(ColorParser.of("<red>This has recently been lockpicked").build());
@@ -76,11 +74,72 @@ public class LockpickListener implements Listener {
             return;
         }
         if (!MaterialGroups.lockpickableBlocks().contains(block.getType())) {
+            if (!Hook.CraftBook.isLoaded()) {
+                return;
+            }
+
+            if (Hook.getCraftBookHook().getBridgeMechanic() != null && Settings.areCraftBookBridgesLockpickable()) {
+                if (Hook.getCraftBookHook().getPossibleBridgeMaterials() != null) {
+                    if (Hook.getCraftBookHook().getPossibleBridgeMaterials().contains(block.getType())) {
+                        WrappedMechanic wrappedMechanic = Hook.getCraftBookHook().checkForMechanic(block, Hook.getCraftBookHook().getBridgeMechanic());
+                        if (wrappedMechanic != null) {
+                            if (SimpleLockpickingAPI.isGettingLockpicked(wrappedMechanic)) {
+                                player.sendMessage(ColorParser.of("<red>You are already lockpicking this").build());
+                                return;
+                            }
+                            ActiveLockpick activeLockpick = new ActiveMechanicLockpick(wrappedMechanic, player, block);
+                            if (!LockpickingManager.registerActiveLockpick(activeLockpick)) {
+                                return;
+                            }
+                            activeLockpick.startLockpicking();
+                            return;
+                        }
+                    }
+                }
+            }
+            if (Hook.getCraftBookHook().getDoorMechanic() != null && Settings.areCraftBookDoorsLockpickable()) {
+                if (Hook.getCraftBookHook().getPossibleDoorMaterials() != null) {
+                    if (Hook.getCraftBookHook().getPossibleDoorMaterials().contains(block.getType())) {
+                        WrappedMechanic wrappedMechanic = Hook.getCraftBookHook().checkForMechanic(block, Hook.getCraftBookHook().getDoorMechanic());
+                        if (wrappedMechanic != null) {
+                            if (SimpleLockpickingAPI.isGettingLockpicked(wrappedMechanic)) {
+                                player.sendMessage(ColorParser.of("<red>You are already lockpicking this").build());
+                                return;
+                            }
+                            ActiveLockpick activeLockpick = new ActiveMechanicLockpick(wrappedMechanic, player, block);
+                            if (!LockpickingManager.registerActiveLockpick(activeLockpick)) {
+                                return;
+                            }
+                            activeLockpick.startLockpicking();
+                            return;
+                        }
+                    }
+                }
+            }
+            if (Hook.getCraftBookHook().getGateMechanic() != null && Settings.areCraftBookGatesLockpickable()) {
+                if (Hook.getCraftBookHook().getPossibleGateMaterials() != null) {
+                    if (Hook.getCraftBookHook().getPossibleGateMaterials().contains(block.getType())) {
+                        WrappedMechanic wrappedMechanic = Hook.getCraftBookHook().checkForMechanic(block, Hook.getCraftBookHook().getGateMechanic());
+                        if (wrappedMechanic != null) {
+                            if (SimpleLockpickingAPI.isGettingLockpicked(wrappedMechanic)) {
+                                player.sendMessage(ColorParser.of("<red>You are already lockpicking this").build());
+                                return;
+                            }
+                            ActiveLockpick activeLockpick = new ActiveMechanicLockpick(wrappedMechanic, player, block);
+                            if (!LockpickingManager.registerActiveLockpick(activeLockpick)) {
+                                return;
+                            }
+                            activeLockpick.startLockpicking();
+                            return;
+                        }
+                    }
+                }
+            }
             return;
         }
 
         // ATTEMPT TO ACTIVATE LOCKPICK
-        if (LockpickingManager.isGettingLockpicked(block)) {
+        if (SimpleLockpickingAPI.isGettingLockpicked(block)) {
             player.sendMessage(ColorParser.of("<red>You are already lockpicking this").build());
             return;
         }
@@ -89,7 +148,7 @@ public class LockpickListener implements Listener {
         if (!LockpickingManager.registerActiveLockpick(activeLockpick)) {
             return;
         }
-        if (!activeLockpick.isNotContainer()) {
+        if (activeLockpick.isContainer()) {
             if (Hook.Towny.isLoaded()) {
                 if (Hook.getTownyHook().isLocationInOwnTown(block.getLocation(), player)) {
                     player.sendMessage(ColorParser.of("<red>You cannot lockpick containers in your own town").build());
@@ -136,7 +195,7 @@ public class LockpickListener implements Listener {
         }
 
         // ATTEMPT TO ACTIVATE LOCKPICK
-        if (LockpickingManager.isGettingLockpicked(entity)) {
+        if (SimpleLockpickingAPI.isGettingLockpicked(entity)) {
             player.sendMessage(ColorParser.of("<red>You are already lockpicking this").build());
             return;
         }
@@ -145,7 +204,7 @@ public class LockpickListener implements Listener {
         if (!LockpickingManager.registerActiveLockpick(activeLockpick)) {
             return;
         }
-        if (!activeLockpick.isNotContainer()) {
+        if (activeLockpick.isContainer()) {
             if (Hook.Towny.isLoaded()) {
                 if (Hook.getTownyHook().isLocationInOwnTown(entity.getLocation(), player)) {
                     player.sendMessage(ColorParser.of("<red>You cannot lockpick containers in your own town").build());

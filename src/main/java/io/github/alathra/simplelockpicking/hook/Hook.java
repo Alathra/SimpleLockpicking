@@ -126,5 +126,10 @@ public enum Hook {
         return (OraxenHook) Hook.Oraxen.get();
     }
 
+    @NotNull
+    public static CraftbookHook getCraftBookHook() {
+        return (CraftbookHook) Hook.CraftBook.get();
+    }
+
 
 }

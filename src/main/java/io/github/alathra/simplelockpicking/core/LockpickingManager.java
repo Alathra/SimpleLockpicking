@@ -1,8 +1,6 @@
 package io.github.alathra.simplelockpicking.core;
 
 import org.bukkit.block.Block;
-import org.bukkit.entity.Entity;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -40,49 +38,5 @@ public class LockpickingManager {
 
     public static void deRegisterActiveLockpick(ActiveLockpick activeLockpick) {
         activeLockpicks.remove(activeLockpick);
-    }
-
-    public static boolean isGettingLockpicked(Block block) {
-        for (ActiveLockpick activeLockpick : activeLockpicks) {
-            if (activeLockpick instanceof ActiveBlockLockpick activeBlockLockpick) {
-                if (activeBlockLockpick.getBlock().equals(block)) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-    public static @Nullable ActiveBlockLockpick getActiveLockpick(Block block) {
-        for (ActiveLockpick activeLockpick : activeLockpicks) {
-            if (activeLockpick instanceof ActiveBlockLockpick activeBlockLockpick) {
-                if (activeBlockLockpick.getBlock().equals(block)) {
-                    return activeBlockLockpick;
-                }
-            }
-        }
-        return null;
-    }
-
-    public static boolean isGettingLockpicked(Entity entity) {
-        for (ActiveLockpick activeLockpick : activeLockpicks) {
-            if (activeLockpick instanceof ActiveEntityLockpick activeEntityLockpick) {
-                if (activeEntityLockpick.getEntity().getEntityId() == entity.getEntityId()) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-    public static @Nullable ActiveEntityLockpick getActiveLockpick(Entity entity) {
-        for (ActiveLockpick activeLockpick : activeLockpicks) {
-            if (activeLockpick instanceof ActiveEntityLockpick activeEntityLockpick) {
-                if (activeEntityLockpick.getEntity().getEntityId() == entity.getEntityId()) {
-                    return activeEntityLockpick;
-                }
-            }
-        }
-        return null;
     }
 }
