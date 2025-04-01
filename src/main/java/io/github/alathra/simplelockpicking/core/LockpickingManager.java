@@ -1,7 +1,5 @@
 package io.github.alathra.simplelockpicking.core;
 
-import org.bukkit.block.Block;
-
 import java.util.HashSet;
 import java.util.Set;
 
@@ -28,6 +26,14 @@ public class LockpickingManager {
                 if (activeLockpick instanceof ActiveEntityLockpick activeEntityLockpick) {
                     // If entity is already being lockpicked
                     if (newActiveEntityLockpick.getEntity().getEntityId() == activeEntityLockpick.getEntity().getEntityId())
+                        return false;
+                }
+            }
+        } else if (newActiveLockpick instanceof ActiveMechanicLockpick newActiveMechanicLock) {
+            for (ActiveLockpick activeLockpick : activeLockpicks) {
+                if (activeLockpick instanceof ActiveMechanicLockpick activeMechanicLockpick) {
+                    // If entity is already being lockpicked
+                    if (newActiveMechanicLock.getWrappedMechanic().getMechanic().getMechanicType().id().contentEquals(activeMechanicLockpick.getWrappedMechanic().getMechanic().getMechanicType().id()))
                         return false;
                 }
             }

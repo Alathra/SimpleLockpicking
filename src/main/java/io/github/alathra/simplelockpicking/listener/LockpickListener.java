@@ -17,6 +17,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.block.BlockPhysicsEvent;
+import org.bukkit.event.block.BlockRedstoneEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
@@ -73,11 +75,7 @@ public class LockpickListener implements Listener {
         if (Settings.getDisabledLockpickingBlocks().contains(block.getType())) {
             return;
         }
-        if (!MaterialGroups.lockpickableBlocks().contains(block.getType())) {
-            if (!Hook.CraftBook.isLoaded()) {
-                return;
-            }
-
+        if (Hook.CraftBook.isLoaded()) {
             if (Hook.getCraftBookHook().getBridgeMechanic() != null && Settings.areCraftBookBridgesLockpickable()) {
                 if (Hook.getCraftBookHook().getPossibleBridgeMaterials() != null) {
                     if (Hook.getCraftBookHook().getPossibleBridgeMaterials().contains(block.getType())) {
@@ -135,6 +133,9 @@ public class LockpickListener implements Listener {
                     }
                 }
             }
+        }
+
+        if (!MaterialGroups.lockpickableBlocks().contains(block.getType())) {
             return;
         }
 
@@ -220,6 +221,29 @@ public class LockpickListener implements Listener {
         // Initiate lockpicking
         activeLockpick.startLockpicking();
         event.setCancelled(true);
+    }
+
+    @EventHandler(priority = EventPriority.NORMAL)
+    public void onPhysicsAppliedToLockpickedBlock(BlockPhysicsEvent event) {
+        Block block = event.getBlock();
+        ActiveBlockLockpick activeBlockLockpick = SimpleLockpickingAPI.getActiveLockpick(block);
+        if (activeBlockLockpick != null) {
+            if (!activeBlockLockpick.isToggleableByPlayers()) {
+                event.setCancelled(true);
+            }
+        }
+    }
+
+    @EventHandler
+    public void onRedstoneSignalAppliedToLockpickedBlock(BlockRedstoneEvent event) {
+        // Prevent redstone from effecting blocks that are currently lockpicked
+        Block block = event.getBlock();
+        ActiveBlockLockpick activeBlockLockpick = SimpleLockpickingAPI.getActiveLockpick(block);
+        if (activeBlockLockpick != null) {
+            if (!activeBlockLockpick.isToggleableByPlayers()) {
+                event.setNewCurrent(event.getOldCurrent());
+            }
+        }
     }
 
 }
