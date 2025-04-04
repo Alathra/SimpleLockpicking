@@ -49,10 +49,10 @@ public class WrappedMechanic {
                 Gate gate = (Gate) mechanic;
                 // Close: null = toggle, true = close, false = open
                 try {
-                    gate.toggleGates(mechanicSign.getBlock(), ChangedSign.create(mechanicSign, Side.FRONT), false);
+                    gate.toggleGates(mechanicSign.getBlock(), ChangedSign.create(mechanicSign, Side.FRONT), null);
                 } catch (InvalidMechanismException e) {
                     try {
-                        gate.toggleGates(mechanicSign.getBlock(), ChangedSign.create(mechanicSign, Side.BACK), false);
+                        gate.toggleGates(mechanicSign.getBlock(), ChangedSign.create(mechanicSign, Side.BACK), null);
                     } catch (InvalidMechanismException ignored) {}
                 }
                 break;

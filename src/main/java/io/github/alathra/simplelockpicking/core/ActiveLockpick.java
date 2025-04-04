@@ -20,15 +20,19 @@ public abstract class ActiveLockpick {
     }
 
     public abstract void toggle();
+
     public abstract boolean isContainer();
+
     public abstract boolean isMultiBlock();
+
     public abstract boolean isSuccessful();
+
     public abstract void lockpickBreakEffect();
 
     public void startLockpicking() {
         player.sendMessage(ColorParser.of("<yellow>Attempting to lockpick...").build());
         // "Use" the lockpick they have in their hand
-        player.getInventory().getItemInMainHand().setAmount(player.getInventory().getItemInMainHand().getAmount()-1);
+        player.getInventory().getItemInMainHand().setAmount(player.getInventory().getItemInMainHand().getAmount() - 1);
         if (Settings.isLockpickingSoundEnabled())
             player.playSound(Settings.getLockpickingSound());
         Bukkit.getScheduler().runTaskLater(SimpleLockpicking.getInstance(), () -> {
@@ -40,15 +44,23 @@ public abstract class ActiveLockpick {
                 if (Settings.getSecondsUntilToggleable() > 0) {
                     if (!isContainer()) {
                         isToggleableByPlayers = false;
-                        Bukkit.getScheduler().runTaskLater(SimpleLockpicking.getInstance(), () -> isToggleableByPlayers = true, Settings.getSecondsUntilToggleable()*20L);
+                        Bukkit.getScheduler().runTaskLater(SimpleLockpicking.getInstance(), () -> {
+                            isToggleableByPlayers = true;
+                            if (Settings.getSecondsUntilToggleable() >= Settings.getSecondsUntilClosesAgain()) {
+                                LockpickingManager.deRegisterActiveLockpick(this);
+                            }
+                        }, Settings.getSecondsUntilToggleable() * 20L);
                     }
                 }
                 if (Settings.getSecondsUntilClosesAgain() > 0 && !isContainer() && !isMultiBlock()) {
                     Bukkit.getScheduler().runTaskLater(SimpleLockpicking.getInstance(), () -> {
                         toggle();
-                        LockpickingManager.deRegisterActiveLockpick(this);
-                    }, Settings.getSecondsUntilClosesAgain()*20L);
-                } else {
+                        if (Settings.getSecondsUntilClosesAgain() > Settings.getSecondsUntilToggleable()) {
+                            LockpickingManager.deRegisterActiveLockpick(this);
+                        }
+                    }, Settings.getSecondsUntilClosesAgain() * 20L);
+                }
+                if (Settings.getSecondsUntilToggleable() <= 0 && Settings.getSecondsUntilClosesAgain() <= 0) {
                     LockpickingManager.deRegisterActiveLockpick(this);
                 }
             } else {
@@ -58,7 +70,7 @@ public abstract class ActiveLockpick {
                 }
                 LockpickingManager.deRegisterActiveLockpick(this);
             }
-        }, Settings.getLockpickSeconds()*20L);
+        }, Settings.getLockpickSeconds() * 20L);
     }
 
     public Object getBase() {
