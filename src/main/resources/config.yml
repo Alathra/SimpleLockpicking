@@ -15,9 +15,9 @@ GeneralSettings:
   # "woodenDoors" and "woodenTrapdoors" and "fenceGates" includes bamboo variants
   LockpickChances:
     barrels: 0.2
+    chests: 0.2
     chestBoats: 0.2
     chestMinecarts: 0.2
-    chests: 0.2
     copperDoors: 0.15
     copperTrapdoors: 0.15
     fenceGates: 0.2
