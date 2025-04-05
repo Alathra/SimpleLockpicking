@@ -1,11 +1,11 @@
 <h1 style="text-align:center;">SimpleLockpicking</h1>
 <p style="text-align:center;">
-    <img alt="GitHub License" src="https://img.shields.io/github/license/Alathra/BoltUX?style=for-the-badge&color=blue&labelColor=141417">
-    <img alt="GitHub Downloads (all assets, all releases)" src="https://img.shields.io/github/downloads/Alathra/BoltUX/total?style=for-the-badge&labelColor=141417">
-    <img alt="GitHub Release" src="https://img.shields.io/github/v/release/Alathra/BoltUX?include_prereleases&sort=semver&style=for-the-badge&label=LATEST%20VERSION&labelColor=141417">
-    <img alt="GitHub Actions Workflow Status" src="https://img.shields.io/github/actions/workflow/status/Alathra/BoltUX/ci.yml?style=for-the-badge&labelColor=141417">
-    <img alt="GitHub Issues or Pull Requests" src="https://img.shields.io/github/issues/Alathra/BoltUX?style=for-the-badge&labelColor=141417">
-    <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/Alathra/BoltUX?style=for-the-badge&labelColor=141417">
+    <img alt="GitHub License" src="https://img.shields.io/github/license/Alathra/SimpleLockpicking?style=for-the-badge&color=blue&labelColor=141417">
+    <img alt="GitHub Downloads (all assets, all releases)" src="https://img.shields.io/github/downloads/Alathra/SimpleLockpicking/total?style=for-the-badge&labelColor=141417">
+    <img alt="GitHub Release" src="https://img.shields.io/github/v/release/Alathra/SimpleLockpicking?include_prereleases&sort=semver&style=for-the-badge&label=LATEST%20VERSION&labelColor=141417">
+    <img alt="GitHub Actions Workflow Status" src="https://img.shields.io/github/actions/workflow/status/Alathra/SimpleLockpicking/ci.yml?style=for-the-badge&labelColor=141417">
+    <img alt="GitHub Issues or Pull Requests" src="https://img.shields.io/github/issues/Alathra/SimpleLockpicking?style=for-the-badge&labelColor=141417">
+    <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/Alathra/SimpleLockpicking?style=for-the-badge&labelColor=141417">
 </p>
 
 ---
@@ -19,7 +19,7 @@ SimpleLockpicking adds lockpick items which can be used to open doors, fence gat
 ## Usage
 Lockpicks are a configurable custom item that used by holding them in your main hand and **shift right clicking** a block or entity. An [example resourcepack](https://github.com/Alathra/SimpleLockpicking/blob/main/SimpleLockpicking-Resourcepack-1.0.zip) is included that gives the lockpick a custom texture and model. Note that this requires the player to have the permission ``simplelockpicking.lockpick`` and that the world is in the ``enabledWorlds`` section of the [config](https://github.com/Alathra/SimpleLockpicking/blob/main/src/main/resources/config.yml). Below is a list of lockpickable things.
 
-| Name             | Type   | Lockpick Action | Notes                                        |
+| **Name**             |   **Type**   |   **Lockpick Action**   | **Notes**                        |
 | ---------------- | ------ | --------------- | -------------------------------------------- |
 | barrel           | block  | opens inventory |                                              |
 | chests           | block  | opens inventory | Does not include trapped chests              |
