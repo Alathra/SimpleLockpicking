@@ -39,14 +39,17 @@ Lockpicks are a configurable custom item that used by holding them in your main 
 Based on the chances defined in the ``LockpickChances`` section of the [config](https://github.com/Alathra/SimpleLockpicking/blob/main/src/main/resources/config.yml), a lockpick will either be successful and trigger the "LockpickAction" defined above, or break and the player will lose the item.
 
 #### Lockpick Success
-(LOCKPICK SUCCESS GIF)
-#### Lockpick Fail
-(LOCKPICK FAIL GIF)
+https://github.com/Alathra/SimpleLockpicking/blob/main/docs/assets/lockpick_success.gif?raw=true
+![Lockpick Success](https://github.com/Alathra/SimpleLockpicking/blob/main/docs/assets/lockpick_success.gif?raw=true "Lockpick Success")
+
+#### Lockpick Fail (It breaks)
+
+![Lockpick Fail](https://github.com/Alathra/SimpleLockpicking/blob/main/docs/assets/lockpick_success.gif?raw=true "Lockpick Fail")
 
 #### Crafting Lockpicks
 SimpleLockpicking includes a default crafting recipe for lockpicks. Please note that for players to craft lockpicks you must have ``enableDefaultLockpickCraftingRecipe`` set to ``true`` in the [config](https://github.com/Alathra/SimpleLockpicking/blob/main/src/main/resources/config.yml) and grant the permissionm ``simplellockpicking.lockpick``.
 
-(LOCKPICK RECIPE)
+![Lockpick Recipe](https://github.com/Alathra/SimpleLockpicking/blob/main/docs/assets/lockpick_recipe.PNG?raw=true "Lockpick Crafting Recipe")
 
 ---
 
