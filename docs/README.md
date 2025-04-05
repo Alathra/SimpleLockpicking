@@ -1,5 +1,5 @@
 <h1 style="text-align:center;">SimpleLockpicking</h1>
-<h2>A Simple Plugin for your lockpicking needs</h2>
+<h2>A simple plugin for your lockpicking needs</h2>
 <p style="text-align:center;">
     <img alt="GitHub License" src="https://img.shields.io/github/license/Alathra/SimpleLockpicking?style=for-the-badge&color=blue&labelColor=141417">
     <img alt="GitHub Downloads (all assets, all releases)" src="https://img.shields.io/github/downloads/Alathra/SimpleLockpicking/total?style=for-the-badge&labelColor=141417">
