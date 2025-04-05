@@ -81,7 +81,7 @@ LockpickItem:
     lore:
       - "<yellow>A special tool to open doors and locked containers"
 
-# These settings only apply if you are running CraftBook3 with SimpleLockPicking
+# These settings only apply if you are running CraftBook5 with SimpleLockPicking
 CraftBookCompatibility:
 
   Bridge:
