@@ -2,8 +2,14 @@ package io.github.alathra.simplelockpicking.hook.craftbook;
 
 import com.destroystokyo.paper.MaterialTags;
 import io.github.alathra.simplelockpicking.SimpleLockpicking;
+import io.github.alathra.simplelockpicking.api.SimpleLockpickingAPI;
+import io.github.alathra.simplelockpicking.config.Settings;
+import io.github.alathra.simplelockpicking.core.ActiveLockpick;
+import io.github.alathra.simplelockpicking.core.ActiveMechanicLockpick;
+import io.github.alathra.simplelockpicking.core.LockpickingManager;
 import io.github.alathra.simplelockpicking.hook.AbstractHook;
 import io.github.alathra.simplelockpicking.hook.Hook;
+import io.github.milkdrinkers.colorparser.ColorParser;
 import net.kyori.adventure.text.TextComponent;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -194,8 +200,65 @@ public class CraftbookHook extends AbstractHook {
         } else return ((TextComponent) sign.getSide(Side.BACK).line(1)).content().contentEquals("[Gate]");
     }
 
-    public CraftBookPlayer getCraftBookPlayer(Player player) {
-        return craftBookPlugin.wrapPlayer(player);
+    public boolean findAndCreateActiveMechanicLockpicks(Player player, Block block) {
+        if (Hook.getCraftBookHook().getBridgeMechanic() != null && Settings.areCraftBookBridgesLockpickable()) {
+            if (Hook.getCraftBookHook().getPossibleBridgeMaterials() != null) {
+                if (Hook.getCraftBookHook().getPossibleBridgeMaterials().contains(block.getType())) {
+                    WrappedMechanic wrappedMechanic = Hook.getCraftBookHook().checkForMechanic(block, Hook.getCraftBookHook().getBridgeMechanic());
+                    if (wrappedMechanic != null) {
+                        if (SimpleLockpickingAPI.isGettingLockpicked(wrappedMechanic)) {
+                            player.sendMessage(ColorParser.of("<red>You are already lockpicking this").build());
+                            return true;
+                        }
+                        ActiveLockpick activeLockpick = new ActiveMechanicLockpick(wrappedMechanic, player, block);
+                        if (!LockpickingManager.registerActiveLockpick(activeLockpick)) {
+                            return true;
+                        }
+                        activeLockpick.startLockpicking();
+                        return true;
+                    }
+                }
+            }
+        }
+        if (Hook.getCraftBookHook().getDoorMechanic() != null && Settings.areCraftBookDoorsLockpickable()) {
+            if (Hook.getCraftBookHook().getPossibleDoorMaterials() != null) {
+                if (Hook.getCraftBookHook().getPossibleDoorMaterials().contains(block.getType())) {
+                    WrappedMechanic wrappedMechanic = Hook.getCraftBookHook().checkForMechanic(block, Hook.getCraftBookHook().getDoorMechanic());
+                    if (wrappedMechanic != null) {
+                        if (SimpleLockpickingAPI.isGettingLockpicked(wrappedMechanic)) {
+                            player.sendMessage(ColorParser.of("<red>You are already lockpicking this").build());
+                            return true;
+                        }
+                        ActiveLockpick activeLockpick = new ActiveMechanicLockpick(wrappedMechanic, player, block);
+                        if (!LockpickingManager.registerActiveLockpick(activeLockpick)) {
+                            return true;
+                        }
+                        activeLockpick.startLockpicking();
+                        return true;
+                    }
+                }
+            }
+        }
+        if (Hook.getCraftBookHook().getGateMechanic() != null && Settings.areCraftBookGatesLockpickable()) {
+            if (Hook.getCraftBookHook().getPossibleGateMaterials() != null) {
+                if (Hook.getCraftBookHook().getPossibleGateMaterials().contains(block.getType())) {
+                    WrappedMechanic wrappedMechanic = Hook.getCraftBookHook().checkForMechanic(block, Hook.getCraftBookHook().getGateMechanic());
+                    if (wrappedMechanic != null) {
+                        if (SimpleLockpickingAPI.isGettingLockpicked(wrappedMechanic)) {
+                            player.sendMessage(ColorParser.of("<red>You are already lockpicking this").build());
+                            return true;
+                        }
+                        ActiveLockpick activeLockpick = new ActiveMechanicLockpick(wrappedMechanic, player, block);
+                        if (!LockpickingManager.registerActiveLockpick(activeLockpick)) {
+                            return true;
+                        }
+                        activeLockpick.startLockpicking();
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 
 }
