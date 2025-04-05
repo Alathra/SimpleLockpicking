@@ -1,10 +1,14 @@
 package io.github.alathra.simplelockpicking.api;
 
+import com.destroystokyo.paper.MaterialTags;
 import io.github.alathra.simplelockpicking.config.Settings;
 import io.github.alathra.simplelockpicking.core.*;
 import io.github.alathra.simplelockpicking.hook.Hook;
 import io.github.alathra.simplelockpicking.hook.craftbook.WrappedMechanic;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
+import org.bukkit.block.data.Bisected;
+import org.bukkit.block.data.type.Door;
 import org.bukkit.entity.Entity;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -80,14 +84,7 @@ public class SimpleLockpickingAPI {
     }
 
     public static boolean isGettingLockpicked(Block block) {
-        for (ActiveLockpick activeLockpick : LockpickingManager.getActiveLockpicks()) {
-            if (activeLockpick instanceof ActiveBlockLockpick activeBlockLockpick) {
-                if (activeBlockLockpick.getBlock().equals(block)) {
-                    return true;
-                }
-            }
-        }
-        return false;
+        return getActiveLockpick(block) != null;
     }
 
     public static @Nullable ActiveBlockLockpick getActiveLockpick(Block block) {
@@ -96,20 +93,25 @@ public class SimpleLockpickingAPI {
                 if (activeBlockLockpick.getBlock().equals(block)) {
                     return activeBlockLockpick;
                 }
+                if (MaterialTags.DOORS.isTagged(block.getType())) {
+                    Door door = (Door) block.getBlockData();
+                    Block otherHalf;
+                    if(door.getHalf().equals(Bisected.Half.TOP)) {
+                        otherHalf = block.getRelative(BlockFace.DOWN);
+                    } else {
+                        otherHalf = block.getRelative(BlockFace.UP);
+                    }
+                    if (activeBlockLockpick.getBlock().equals(otherHalf)) {
+                        return activeBlockLockpick;
+                    }
+                }
             }
         }
         return null;
     }
 
     public static boolean isGettingLockpicked(Entity entity) {
-        for (ActiveLockpick activeLockpick : LockpickingManager.getActiveLockpicks()) {
-            if (activeLockpick instanceof ActiveEntityLockpick activeEntityLockpick) {
-                if (activeEntityLockpick.getEntity().getEntityId() == entity.getEntityId()) {
-                    return true;
-                }
-            }
-        }
-        return false;
+        return getActiveLockpick(entity) != null;
     }
 
     public static @Nullable ActiveEntityLockpick getActiveLockpick(Entity entity) {
@@ -126,14 +128,7 @@ public class SimpleLockpickingAPI {
     }
 
     public static boolean isGettingLockpicked(WrappedMechanic wrappedMechanic) {
-        for (ActiveLockpick activeLockpick : LockpickingManager.getActiveLockpicks()) {
-            if (activeLockpick instanceof ActiveMechanicLockpick activeMechanicLockpick) {
-                if (activeMechanicLockpick.getWrappedMechanic().getMechanic().getMechanicType().id().contentEquals(wrappedMechanic.getMechanic().getMechanicType().id())) {
-                    return true;
-                }
-            }
-        }
-        return false;
+        return getActiveLockpick(wrappedMechanic) != null;
     }
 
     public static @Nullable ActiveMechanicLockpick getActiveLockpick(WrappedMechanic wrappedMechanic) {

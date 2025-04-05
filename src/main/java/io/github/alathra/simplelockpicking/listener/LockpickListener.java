@@ -234,7 +234,7 @@ public class LockpickListener implements Listener {
         }
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.NORMAL)
     public void onRedstoneSignalAppliedToLockpickedBlock(BlockRedstoneEvent event) {
         // Prevent redstone from effecting blocks that are currently lockpicked
         Block block = event.getBlock();
