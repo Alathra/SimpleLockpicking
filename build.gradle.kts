@@ -1,5 +1,3 @@
-import java.time.Instant
-
 plugins {
     `java-library`
 
@@ -12,7 +10,6 @@ plugins {
 }
 
 val mainPackage = "${project.group}.${project.name.lowercase()}"
-applyCustomVersion()
 
 java {
     toolchain.languageVersion.set(JavaLanguageVersion.of(21)) // Configure the java toolchain. This allows gradle to auto-provision JDK 21 on systems that only have JDK 8 installed for example.
@@ -41,6 +38,7 @@ repositories {
     maven("https://repo.nexomc.com/releases") // Nexo
     maven("https://repo.oraxen.com/releases") // Oraxen
     maven("https://maven.enginehub.org/repo/") // WorldEdit
+    maven("https://repo.codemc.io/repository/maven-public/") // Bolt
 }
 
 dependencies {
@@ -48,7 +46,6 @@ dependencies {
     compileOnly(libs.annotations)
     annotationProcessor(libs.annotations)
     compileOnly(libs.paper.api)
-    implementation(libs.morepaperlib)
 
     // API
     implementation(libs.crate.api)
@@ -58,19 +55,13 @@ dependencies {
     }
     implementation(libs.commandapi.shade)
     //annotationProcessor(libs.commandapi.annotations) // Uncomment if you want to use command annotations
-    implementation(libs.triumph.gui) {
-        exclude("net.kyori")
-    }
 
     // Plugin dependencies
-    compileOnly(libs.vault)
-    compileOnly(libs.placeholderapi) {
-        exclude("me.clip.placeholderapi.libs", "kyori")
-    }
-    compileOnly(libs.towny)
+    compileOnly(libs.boltbukkit)
     compileOnly(libs.itemsadder)
     compileOnly(libs.nexo)
     compileOnly(libs.oraxen)
+    compileOnly(libs.towny)
     compileOnly(libs.worldedit)
     compileOnly((files("${project.projectDir}/libs/craftbook-bukkit-5.0.0-beta-04.jar")))
 
@@ -120,11 +111,9 @@ tasks {
         // Shadow classes
         fun reloc(originPkg: String, targetPkg: String) = relocate(originPkg, "${mainPackage}.lib.${targetPkg}")
 
-        reloc("space.arim.morepaperlib", "morepaperlib")
         reloc("io.github.milkdrinkers.crate", "crate")
         reloc("io.github.milkdrinkers.colorparser", "colorparser")
         reloc("dev.jorel.commandapi", "commandapi")
-        reloc("dev.triumphteam.gui", "gui")
 
         mergeServiceFiles {
             setPath("META-INF/services/org.flywaydb.core.extensibility.Plugin") // Fix Flyway overriding its own files
@@ -151,6 +140,7 @@ tasks {
         downloadPlugins {
             github("MilkBowl", "Vault", "1.7.3", "Vault.jar")
             modrinth("CraftBook", "5.0.0-beta-04")
+            modrinth("Bolt", "1.1.52")
         }
     }
 }
@@ -172,15 +162,7 @@ bukkit { // Options: https://github.com/Minecrell/plugin-yml#bukkit
     // Misc properties
     load = net.minecrell.pluginyml.bukkit.BukkitPluginDescription.PluginLoadOrder.POSTWORLD // STARTUP or POSTWORLD
     depend = listOf()
-    softDepend = listOf("CraftBook", "ItemsAdder", "Nexo", "Oraxen", "Towny")
+    softDepend = listOf("CraftBook", "Bolt", "ItemsAdder", "Nexo", "Oraxen", "Towny")
     loadBefore = listOf()
     provides = listOf()
-}
-
-fun applyCustomVersion() {
-    // Apply custom version arg or append snapshot version
-    val ver = properties["altVer"]?.toString() ?: "${rootProject.version}-SNAPSHOT-${Instant.now().epochSecond}"
-
-    // Strip prefixed "v" from version tag
-    rootProject.version = (if (ver.first().equals('v', true)) ver.substring(1) else ver.uppercase()).uppercase()
 }

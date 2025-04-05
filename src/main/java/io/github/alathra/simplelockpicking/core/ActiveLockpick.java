@@ -3,15 +3,21 @@ package io.github.alathra.simplelockpicking.core;
 import io.github.alathra.simplelockpicking.SimpleLockpicking;
 import io.github.alathra.simplelockpicking.api.SimpleLockpickingAPI;
 import io.github.alathra.simplelockpicking.config.Settings;
+import io.github.alathra.simplelockpicking.hook.Hook;
 import io.github.milkdrinkers.colorparser.ColorParser;
 import org.bukkit.*;
+import org.bukkit.block.Block;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
+import org.jetbrains.annotations.Nullable;
 
 public abstract class ActiveLockpick {
 
     private final Object base;
     private final Player player;
     private boolean isToggleableByPlayers;
+    private boolean wasAccessForced;
 
     public ActiveLockpick(Object base, Player player) {
         this.base = base;
@@ -19,15 +25,17 @@ public abstract class ActiveLockpick {
         isToggleableByPlayers = true;
     }
 
-    public abstract void toggle();
+    public abstract void toggleBase();
 
     public abstract boolean isContainer();
+
+    public abstract @Nullable Inventory getInventory();
 
     public abstract boolean isMultiBlock();
 
     public abstract boolean isSuccessful();
 
-    public abstract void lockpickBreakEffect();
+    public abstract void createLockpickBreakEffect();
 
     public void startLockpicking() {
         player.sendMessage(ColorParser.of("<yellow>Attempting to lockpick...").build());
@@ -40,7 +48,18 @@ public abstract class ActiveLockpick {
                 player.sendMessage(ColorParser.of("<green>Lockpicking was successful").build());
                 // return lockpick to inventory
                 player.getInventory().addItem(SimpleLockpickingAPI.getLockpickItem());
-                toggle();
+                wasAccessForced = false;
+                if (Hook.Bolt.isLoaded()) {
+                    wasAccessForced = Hook.getBoltHook().forceAccessIfNeeded(this);
+                    if (wasAccessForced) {
+                        if (getBase() instanceof Block block) {
+                            LockpickingManager.getForcedAccessBlockInventoriies().put(block, getInventory());
+                        } else if (getBase() instanceof Entity entity) {
+                            LockpickingManager.getForcedAccessEntityInventories().put(entity, getInventory());
+                        }
+                    }
+                }
+                toggleBase();
                 if (isContainer()) {
                     LockpickingManager.deRegisterActiveLockpick(this);
                     return;
@@ -56,7 +75,7 @@ public abstract class ActiveLockpick {
                 }
                 if (Settings.getSecondsUntilClosesAgain() > 0 && !isMultiBlock()) {
                     Bukkit.getScheduler().runTaskLater(SimpleLockpicking.getInstance(), () -> {
-                        toggle();
+                        toggleBase();
                         if (Settings.getSecondsUntilClosesAgain() > Settings.getSecondsUntilToggleable()) {
                             LockpickingManager.deRegisterActiveLockpick(this);
                         }
@@ -68,7 +87,7 @@ public abstract class ActiveLockpick {
             } else {
                 player.sendMessage(ColorParser.of("<red>Your lockpick broke").build());
                 if (Settings.isLockpickBreakEffectEnabled()) {
-                    lockpickBreakEffect();
+                    createLockpickBreakEffect();
                 }
                 LockpickingManager.deRegisterActiveLockpick(this);
             }
@@ -85,6 +104,10 @@ public abstract class ActiveLockpick {
 
     public boolean isToggleableByPlayers() {
         return isToggleableByPlayers;
+    }
+
+    public boolean wasAccessForced() {
+        return wasAccessForced;
     }
 
 }

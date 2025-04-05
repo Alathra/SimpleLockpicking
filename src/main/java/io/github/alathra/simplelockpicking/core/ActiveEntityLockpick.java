@@ -9,6 +9,8 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.minecart.StorageMinecart;
+import org.bukkit.inventory.Inventory;
+import org.jetbrains.annotations.Nullable;
 
 
 public class ActiveEntityLockpick extends ActiveLockpick {
@@ -21,7 +23,7 @@ public class ActiveEntityLockpick extends ActiveLockpick {
     }
 
     @Override
-    public void toggle() {
+    public void toggleBase() {
         if (EntityGroups.getChestBoats().contains(entity.getType())) {
             ChestBoat chestBoat = (ChestBoat) entity;
             super.getPlayer().openInventory(chestBoat.getInventory());
@@ -38,6 +40,18 @@ public class ActiveEntityLockpick extends ActiveLockpick {
     }
 
     @Override
+    public @Nullable Inventory getInventory() {
+        if (EntityGroups.getChestBoats().contains(entity.getType())) {
+            ChestBoat chestBoat = (ChestBoat) entity;
+            return chestBoat.getInventory();
+        } else if (entity.getType().equals(EntityType.CHEST_MINECART)) {
+            StorageMinecart chestMinecart = (StorageMinecart) entity;
+            return chestMinecart.getInventory();
+        }
+        return null;
+    }
+
+    @Override
     public boolean isMultiBlock() {
         return false;
     }
@@ -48,7 +62,7 @@ public class ActiveEntityLockpick extends ActiveLockpick {
     }
 
     @Override
-    public void lockpickBreakEffect() {
+    public void createLockpickBreakEffect() {
         entity.getWorld().playEffect(entity.getLocation(), Effect.STEP_SOUND, Material.IRON_BLOCK);
     }
 

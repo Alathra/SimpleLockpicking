@@ -1,5 +1,6 @@
 package io.github.alathra.simplelockpicking.hook;
 
+import io.github.alathra.simplelockpicking.hook.bolt.BoltHook;
 import io.github.alathra.simplelockpicking.hook.craftbook.CraftbookHook;
 import io.github.alathra.simplelockpicking.hook.itemsadder.ItemsAdderHook;
 import io.github.alathra.simplelockpicking.hook.nexo.NexoHook;
@@ -13,6 +14,7 @@ import org.jetbrains.annotations.Nullable;
  * Enum of all hooks used by the plugin.
  */
 public enum Hook {
+    Bolt(BoltHook.class, "Bolt", true),
     CraftBook(CraftbookHook.class, "Craftbook5", true),
     Towny(TownyHook.class, "Towny", true),
     ItemsAdder(ItemsAdderHook.class, "ItemsAdder", true),
@@ -129,6 +131,11 @@ public enum Hook {
     @NotNull
     public static CraftbookHook getCraftBookHook() {
         return (CraftbookHook) Hook.CraftBook.get();
+    }
+
+    @NotNull
+    public static BoltHook getBoltHook() {
+        return (BoltHook) Hook.Bolt.get();
     }
 
 

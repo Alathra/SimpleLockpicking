@@ -84,10 +84,10 @@ public class SimpleLockpickingAPI {
     }
 
     public static boolean isGettingLockpicked(Block block) {
-        return getActiveLockpick(block) != null;
+        return getActiveLockpickOrNull(block) != null;
     }
 
-    public static @Nullable ActiveBlockLockpick getActiveLockpick(Block block) {
+    public static @Nullable ActiveBlockLockpick getActiveLockpickOrNull(Block block) {
         for (ActiveLockpick activeLockpick : LockpickingManager.getActiveLockpicks()) {
             if (activeLockpick instanceof ActiveBlockLockpick activeBlockLockpick) {
                 if (activeBlockLockpick.getBlock().equals(block)) {
@@ -111,10 +111,10 @@ public class SimpleLockpickingAPI {
     }
 
     public static boolean isGettingLockpicked(Entity entity) {
-        return getActiveLockpick(entity) != null;
+        return getActiveLockpickOrNull(entity) != null;
     }
 
-    public static @Nullable ActiveEntityLockpick getActiveLockpick(Entity entity) {
+    public static @Nullable ActiveEntityLockpick getActiveLockpickOrNull(Entity entity) {
         for (ActiveLockpick activeLockpick : LockpickingManager.getActiveLockpicks()) {
             if (activeLockpick instanceof ActiveEntityLockpick activeEntityLockpick) {
                 if (activeEntityLockpick.getEntity().equals(entity)) {
@@ -128,10 +128,10 @@ public class SimpleLockpickingAPI {
     }
 
     public static boolean isGettingLockpicked(WrappedMechanic wrappedMechanic) {
-        return getActiveLockpick(wrappedMechanic) != null;
+        return getActiveLockpickOrNull(wrappedMechanic) != null;
     }
 
-    public static @Nullable ActiveMechanicLockpick getActiveLockpick(WrappedMechanic wrappedMechanic) {
+    public static @Nullable ActiveMechanicLockpick getActiveLockpickOrNull(WrappedMechanic wrappedMechanic) {
         for (ActiveLockpick activeLockpick : LockpickingManager.getActiveLockpicks()) {
             if (activeLockpick instanceof ActiveMechanicLockpick activeMechanicLockpick) {
                 if (activeMechanicLockpick.getWrappedMechanic().getMechanic().getMechanicType().id().contentEquals(wrappedMechanic.getMechanic().getMechanicType().id())) {

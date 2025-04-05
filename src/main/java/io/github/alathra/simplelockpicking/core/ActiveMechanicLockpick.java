@@ -6,6 +6,8 @@ import org.bukkit.Effect;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
+import org.jetbrains.annotations.Nullable;
 
 public class ActiveMechanicLockpick extends ActiveLockpick {
 
@@ -19,13 +21,18 @@ public class ActiveMechanicLockpick extends ActiveLockpick {
     }
 
     @Override
-    public void toggle() {
+    public void toggleBase() {
         wrappedMechanic.toggle();
     }
 
     @Override
     public boolean isContainer() {
         return false;
+    }
+
+    @Override
+    public @Nullable Inventory getInventory() {
+        return null;
     }
 
     @Override
@@ -44,7 +51,7 @@ public class ActiveMechanicLockpick extends ActiveLockpick {
     }
 
     @Override
-    public void lockpickBreakEffect() {
+    public void createLockpickBreakEffect() {
         clickedBlock.getWorld().playEffect(clickedBlock.getLocation(), Effect.STEP_SOUND, Material.IRON_BLOCK);
     }
 

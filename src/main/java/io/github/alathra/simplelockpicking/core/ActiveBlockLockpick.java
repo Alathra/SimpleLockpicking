@@ -9,6 +9,8 @@ import org.bukkit.block.data.type.Door;
 import org.bukkit.block.data.type.Gate;
 import org.bukkit.block.data.type.TrapDoor;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
@@ -22,7 +24,7 @@ public class ActiveBlockLockpick extends ActiveLockpick {
     }
 
     @Override
-    public void toggle() {
+    public void toggleBase() {
         World world = block.getWorld();
         if (MaterialTags.DOORS.isTagged(block.getType())) {
             BlockState blockState = block.getState();
@@ -175,6 +177,21 @@ public class ActiveBlockLockpick extends ActiveLockpick {
     }
 
     @Override
+    public @Nullable Inventory getInventory() {
+        if (block.getType().equals(Material.BARREL)) {
+            Barrel barrel = (Barrel) block.getState();
+            return barrel.getInventory();
+        } else if (block.getType().equals(Material.CHEST) || block.getType().equals(Material.TRAPPED_CHEST)) {
+            Chest chest = (Chest) block.getState();
+            return chest.getInventory();
+        } else if (MaterialTags.SHULKER_BOXES.isTagged(block.getType())) {
+            ShulkerBox shulkerBox = (ShulkerBox) block.getState();
+            return shulkerBox.getInventory();
+        }
+        return null;
+    }
+
+    @Override
     public boolean isMultiBlock() {
         return false;
     }
@@ -185,7 +202,7 @@ public class ActiveBlockLockpick extends ActiveLockpick {
     }
 
     @Override
-    public void lockpickBreakEffect() {
+    public void createLockpickBreakEffect() {
         block.getWorld().playEffect(block.getLocation(), Effect.STEP_SOUND, Material.IRON_BLOCK);
     }
 

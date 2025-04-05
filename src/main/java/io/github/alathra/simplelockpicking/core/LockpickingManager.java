@@ -1,14 +1,30 @@
 package io.github.alathra.simplelockpicking.core;
 
+import org.bukkit.block.Block;
+import org.bukkit.entity.Entity;
+import org.bukkit.inventory.Inventory;
+
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 public class LockpickingManager {
 
     private static final Set<ActiveLockpick> activeLockpicks = new HashSet<>();
+    private static final Map<Block, Inventory> forcedAccessBlockInventoriies = new HashMap<>();
+    private static final Map<Entity, Inventory> forcedAccessEntityInventoriies = new HashMap<>();
 
     public static Set<ActiveLockpick> getActiveLockpicks() {
         return activeLockpicks;
+    }
+
+    public static Map<Block, Inventory> getForcedAccessBlockInventoriies() {
+        return forcedAccessBlockInventoriies;
+    }
+
+    public static Map<Entity, Inventory> getForcedAccessEntityInventories() {
+        return forcedAccessEntityInventoriies;
     }
 
     public static boolean registerActiveLockpick(ActiveLockpick newActiveLockpick) {

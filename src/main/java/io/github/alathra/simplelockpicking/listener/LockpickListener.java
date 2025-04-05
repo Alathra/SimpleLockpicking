@@ -18,9 +18,11 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockPhysicsEvent;
 import org.bukkit.event.block.BlockRedstoneEvent;
+import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
+import org.bukkit.inventory.Inventory;
 
 public class LockpickListener implements Listener {
 
@@ -49,7 +51,7 @@ public class LockpickListener implements Listener {
         Player player = event.getPlayer();
 
         // Check for toggling a lockpicked non-container
-        ActiveBlockLockpick activeBlockLockpick = SimpleLockpickingAPI.getActiveLockpick(block);
+        ActiveBlockLockpick activeBlockLockpick = SimpleLockpickingAPI.getActiveLockpickOrNull(block);
         if (activeBlockLockpick != null) {
             if (!activeBlockLockpick.isToggleableByPlayers()) {
                 player.sendMessage(ColorParser.of("<red>This has recently been lockpicked").build());
@@ -171,7 +173,7 @@ public class LockpickListener implements Listener {
     @EventHandler(priority = EventPriority.NORMAL)
     public void onPhysicsAppliedToLockpickedBlock(BlockPhysicsEvent event) {
         Block block = event.getBlock();
-        ActiveBlockLockpick activeBlockLockpick = SimpleLockpickingAPI.getActiveLockpick(block);
+        ActiveBlockLockpick activeBlockLockpick = SimpleLockpickingAPI.getActiveLockpickOrNull(block);
         if (activeBlockLockpick != null) {
             if (!activeBlockLockpick.isToggleableByPlayers()) {
                 event.setCancelled(true);
@@ -183,12 +185,21 @@ public class LockpickListener implements Listener {
     public void onRedstoneSignalAppliedToLockpickedBlock(BlockRedstoneEvent event) {
         // Prevent redstone from effecting blocks that are currently lockpicked
         Block block = event.getBlock();
-        ActiveBlockLockpick activeBlockLockpick = SimpleLockpickingAPI.getActiveLockpick(block);
+        ActiveBlockLockpick activeBlockLockpick = SimpleLockpickingAPI.getActiveLockpickOrNull(block);
         if (activeBlockLockpick != null) {
             if (!activeBlockLockpick.isToggleableByPlayers()) {
                 event.setNewCurrent(event.getOldCurrent());
             }
         }
+    }
+
+    @EventHandler(priority = EventPriority.NORMAL)
+    public void onLockpickedInventoryClosed(InventoryCloseEvent event) {
+        if (!Hook.getBoltHook().isHookLoaded()) {
+            return;
+        }
+        Inventory inventory = event.getInventory();
+        Hook.getBoltHook().revokeAccessIfNeeded(inventory);
     }
 
 }
