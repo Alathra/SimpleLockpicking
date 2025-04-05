@@ -41,18 +41,20 @@ public abstract class ActiveLockpick {
                 // return lockpick to inventory
                 player.getInventory().addItem(SimpleLockpickingAPI.getLockpickItem());
                 toggle();
-                if (Settings.getSecondsUntilToggleable() > 0) {
-                    if (!isContainer()) {
-                        isToggleableByPlayers = false;
-                        Bukkit.getScheduler().runTaskLater(SimpleLockpicking.getInstance(), () -> {
-                            isToggleableByPlayers = true;
-                            if (Settings.getSecondsUntilToggleable() >= Settings.getSecondsUntilClosesAgain()) {
-                                LockpickingManager.deRegisterActiveLockpick(this);
-                            }
-                        }, Settings.getSecondsUntilToggleable() * 20L);
-                    }
+                if (isContainer()) {
+                    LockpickingManager.deRegisterActiveLockpick(this);
+                    return;
                 }
-                if (Settings.getSecondsUntilClosesAgain() > 0 && !isContainer() && !isMultiBlock()) {
+                if (Settings.getSecondsUntilToggleable() > 0) {
+                    isToggleableByPlayers = false;
+                    Bukkit.getScheduler().runTaskLater(SimpleLockpicking.getInstance(), () -> {
+                        isToggleableByPlayers = true;
+                        if (Settings.getSecondsUntilToggleable() >= Settings.getSecondsUntilClosesAgain()) {
+                            LockpickingManager.deRegisterActiveLockpick(this);
+                        }
+                    }, Settings.getSecondsUntilToggleable() * 20L);
+                }
+                if (Settings.getSecondsUntilClosesAgain() > 0 && !isMultiBlock()) {
                     Bukkit.getScheduler().runTaskLater(SimpleLockpicking.getInstance(), () -> {
                         toggle();
                         if (Settings.getSecondsUntilClosesAgain() > Settings.getSecondsUntilToggleable()) {
