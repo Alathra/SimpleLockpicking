@@ -6,12 +6,16 @@ import io.github.alathra.simplelockpicking.api.SimpleLockpickingAPI;
 import io.github.alathra.simplelockpicking.config.Settings;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
+import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
 
 public class CraftingHandler implements Reloadable {
 
+    private SimpleLockpicking plugin;
+
     @Override
     public void onLoad(SimpleLockpicking plugin) {
+        this.plugin = plugin;
     }
 
     @Override
@@ -25,13 +29,17 @@ public class CraftingHandler implements Reloadable {
     public void onDisable(SimpleLockpicking plugin) {
     }
 
-    public void loadLockpickRecipe() {
+    public static Recipe getLockpickRecipe() {
         NamespacedKey key = new NamespacedKey(SimpleLockpicking.getInstance(), "lockpick");
         ShapedRecipe lockpickRecipe = new ShapedRecipe(key, SimpleLockpickingAPI.getLockpickItem());
         lockpickRecipe.shape("@@ ", " % ", "%  ");
         lockpickRecipe.setIngredient('@', Material.IRON_INGOT);
         lockpickRecipe.setIngredient('%', Material.STICK);
-        SimpleLockpicking.getInstance().getServer().addRecipe(lockpickRecipe);
+        return lockpickRecipe;
+    }
+
+    public void loadLockpickRecipe() {
+        plugin.getServer().addRecipe(getLockpickRecipe());
     }
 
 }
