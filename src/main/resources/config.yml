@@ -4,11 +4,13 @@
 # ================================================#
 
 GeneralSettings:
+
   # The worlds where players can use lockpicks
   enabledWorlds:
     - world
     - world_nether
     - world_the_end
+
   # The chance of successfully using a lockpick
   # "woodenDoors" and "woodenTrapdoors" and "fenceGates" includes bamboo variants
   LockpickChances:
@@ -25,40 +27,51 @@ GeneralSettings:
     trappedChests: 0.2
     woodenDoors: 0.2
     woodenTrapdoors: 0.2
+
   # The amount of time it takes for a lockpick something
   lockpickSeconds: 5
+
   # The amount of seconds until doors/gates/trapdoors auto-close after being forced open by a lockpick
   # Set to 0 to disable this feature
   secondsUntilClosesAgain: 5
+
   # The amount of seconds that a player won't be able to toggle a door/gate/trapdoor after it has been lockpicked
   # Set to 0 to disable this feature
   secondsUntilToggleable: 5
+
   # If the default lockpick crafting recipe will be enabled
   enableDefaultLockpickCraftingRecipe: true
+
   # The sound made when a player uses a lockpick
   LockpickSound:
     enabled: true
     effect: "minecraft:item.flintandsteel.use"
     volume: 1.0
     pitch: 1.5
+
   # If an effect will appear for the player when their lockpick breaks
   enableLockpickBreakEffect: true
+
   # Disables lockpicking for the given blocks
   # A list of materials can be found here: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html
   disableLockpickingForBlocks:
     #- OAK_DOOR
     #- OAK_TRAPDOOR
     #- OAK_FENCE_GATE
+
   # Disables lockpicking for the given entities
   disableLockpickingForEntities:
     #- OAK_CHEST_BOAT
     #- CHEST_MINECRAFT
 
 LockpickItem:
+
   # Possible entries are "ItemsAder", "Nexo", "Oraxen" or "None". Leave blank or use "None" to use the default lockpick item
   itemPlugin: ""
+
   # The identifier of the custom lockpick item. Only applicable if using an item plugin defined above
   customLockItemID: ""
+
   # The default lockpick item if no item plugin is specified
   # Uses MiniMessage color formats
   DefaultLockpickItem:
@@ -70,14 +83,22 @@ LockpickItem:
 
 # These settings only apply if you are running CraftBook3 with SimpleLockPicking
 CraftBookCompatibility:
+
   Bridge:
     # If this CraftBook mechanic can be lockpicked
     enabled: true
+
     # The chance of successfully using a lockpick on this CraftBook mechanic
     chance: 0.2
+
   Door:
+
     enabled: true
+
     chance: 0.2
+
   Gate:
+
     enabled: true
+
     chance: 0.2
