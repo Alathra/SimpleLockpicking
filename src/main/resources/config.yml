@@ -23,7 +23,7 @@ GeneralSettings:
     fenceGates: 0.2
     ironDoors: 0.1
     ironTrapdoors: 0.1
-    shulkers: 0.2
+    shulkerBoxes: 0.2
     trappedChests: 0.2
     woodenDoors: 0.2
     woodenTrapdoors: 0.2

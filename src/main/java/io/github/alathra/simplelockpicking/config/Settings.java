@@ -41,7 +41,7 @@ public class Settings {
         MaterialTags.FENCE_GATES.getValues().forEach(material -> lockpickChancesMap.put(material, Cfg.get().getDouble("GeneralSettings.LockpickChances.fenceGates")));
         lockpickChancesMap.put(Material.IRON_DOOR, Cfg.get().getDouble("GeneralSettings.LockpickChances.ironDoors"));
         lockpickChancesMap.put(Material.IRON_TRAPDOOR, Cfg.get().getDouble("GeneralSettings.LockpickChances.ironTrapdoors"));
-        MaterialTags.SHULKER_BOXES.getValues().forEach(material -> lockpickChancesMap.put(material, Cfg.get().getDouble("GeneralSettings.LockpickChances.shulkers")));
+        MaterialTags.SHULKER_BOXES.getValues().forEach(material -> lockpickChancesMap.put(material, Cfg.get().getDouble("GeneralSettings.LockpickChances.shulkerBoxes")));
         lockpickChancesMap.put(Material.TRAPPED_CHEST, Cfg.get().getDouble("GeneralSettings.LockpickChances.trappedChests"));
         MaterialTags.WOODEN_DOORS.getValues().forEach(material -> lockpickChancesMap.put(material, Cfg.get().getDouble("GeneralSettings.LockpickChances.woodenDoors")));
         lockpickChancesMap.put(Material.BAMBOO_DOOR, Cfg.get().getDouble("GeneralSettings.LockpickChances.woodenDoors"));
