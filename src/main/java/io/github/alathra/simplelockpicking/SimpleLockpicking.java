@@ -1,5 +1,6 @@
 package io.github.alathra.simplelockpicking;
 
+import io.github.alathra.simplelockpicking.crafting.CraftingHandler;
 import io.github.alathra.simplelockpicking.hook.HookManager;
 import io.github.alathra.simplelockpicking.command.CommandHandler;
 import io.github.alathra.simplelockpicking.config.ConfigHandler;
@@ -16,6 +17,7 @@ public class SimpleLockpicking extends JavaPlugin {
 
     // Handlers/Managers
     private ConfigHandler configHandler;
+    private CraftingHandler craftingHandler;
     private HookManager hookManager;
     private CommandHandler commandHandler;
     private ListenerHandler listenerHandler;
@@ -32,12 +34,14 @@ public class SimpleLockpicking extends JavaPlugin {
         instance = this;
 
         configHandler = new ConfigHandler(this);
+        craftingHandler = new CraftingHandler(this);
         hookManager = new HookManager(this);
         commandHandler = new CommandHandler(this);
         listenerHandler = new ListenerHandler(this);
 
         handlers = List.of(
             configHandler,
+            craftingHandler,
             hookManager,
             commandHandler,
             listenerHandler

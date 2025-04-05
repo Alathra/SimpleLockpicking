@@ -13,6 +13,10 @@ public class CraftingHandler implements Reloadable {
 
     private SimpleLockpicking plugin;
 
+    public CraftingHandler(SimpleLockpicking plugin) {
+        this.plugin = plugin;
+    }
+
     @Override
     public void onLoad(SimpleLockpicking plugin) {
         this.plugin = plugin;
