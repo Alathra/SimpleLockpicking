@@ -12,6 +12,7 @@ plugins {
 }
 
 val mainPackage = "${project.group}.${project.name.lowercase()}"
+applyCustomVersion()
 
 java {
     toolchain.languageVersion.set(JavaLanguageVersion.of(21)) // Configure the java toolchain. This allows gradle to auto-provision JDK 21 on systems that only have JDK 8 installed for example.
