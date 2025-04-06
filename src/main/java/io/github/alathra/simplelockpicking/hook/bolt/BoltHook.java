@@ -79,7 +79,7 @@ public class BoltHook extends AbstractHook {
         boolean isOwner = protection.getOwner().equals(player.getUniqueId());
         if (isOwner)
             return true;
-        return boltPlugin.canAccess(protection, player, Permission.INTERACT, Permission.OPEN);
+        return boltPlugin.canAccess(protection, player, Permission.INTERACT, Permission.OPEN, Permission.DEPOSIT, Permission.WITHDRAW);
     }
 
     private void grantAccess(Protection protection, Player player) {
