@@ -58,7 +58,7 @@ SimpleLockpicking includes a default crafting recipe for lockpicks. Please note 
 * #### [BlockLocker](https://www.spigotmc.org/resources/blocklocker.3268/)
     *Works natively*
 * #### [Bolt](https://modrinth.com/plugin/bolt)
-    *Ssupport provided by SimpleLoickpicking*
+    *Support provided by SimpleLoickpicking*
 * #### [LWC Extended](https://www.spigotmc.org/resources/lwc-extended.69551/)
     *Works natively*
 ### Optional Hooks
