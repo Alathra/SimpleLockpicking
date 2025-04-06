@@ -44,7 +44,7 @@ Based on the chances defined in the ``LockpickChances`` section of the [config](
 
 #### Lockpick Fail (It breaks)
 
-![Lockpick Fail](https://github.com/Alathra/SimpleLockpicking/blob/main/docs/assets/lockpick_success.gif?raw=true "Lockpick Fail")
+![Lockpick Fail](https://github.com/Alathra/SimpleLockpicking/blob/main/docs/assets/lockpick_fail.gif?raw=true "Lockpick Fail")
 
 #### Crafting Lockpicks
 SimpleLockpicking includes a default crafting recipe for lockpicks. Please note that for players to craft lockpicks you must have ``enableDefaultLockpickCraftingRecipe`` set to ``true`` in the [config](https://github.com/Alathra/SimpleLockpicking/blob/main/src/main/resources/config.yml) and grant the permissionm ``simplellockpicking.lockpick``.
