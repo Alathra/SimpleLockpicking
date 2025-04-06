@@ -18,7 +18,7 @@ SimpleLockpicking adds lockpick items which can be used to open doors, fence gat
 ---
 
 ## Usage
-Lockpicks are a configurable custom item that used by holding them in your main hand and **shift right clicking** a block or entity. An [example resourcepack](https://github.com/Alathra/SimpleLockpicking/blob/main/SimpleLockpicking-Resourcepack-1.0.zip) is included that gives the lockpick a custom texture and model. Note that this requires the player to have the permission ``simplelockpicking.lockpick`` and that the world is in the ``enabledWorlds`` section of the [config](https://github.com/Alathra/SimpleLockpicking/blob/main/src/main/resources/config.yml). Below is a list of lockpickable things.
+Lockpicks are a configurable custom item that are used by holding them in your main hand and **shift right clicking** a block or entity. Note that lockpicking requires the player to have the permission ``simplelockpicking.lockpick`` and that the world is in the ``enabledWorlds`` section of the [config](https://github.com/Alathra/SimpleLockpicking/blob/main/src/main/resources/config.yml). An [example resourcepack](https://github.com/Alathra/SimpleLockpicking/blob/main/SimpleLockpicking-Resourcepack-1.0.zip) is included that gives the lockpick item a custom texture and model. Below is a list of lockpickable things.
 
 | **Name**             |   **Type**   |   **Lockpick Action**   | **Notes**                        |
 | ---------------- | ------ | --------------- | -------------------------------------------- |
