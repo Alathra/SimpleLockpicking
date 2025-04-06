@@ -102,3 +102,8 @@ CraftBookCompatibility:
     enabled: true
 
     chance: 0.2
+
+TownyCompatibility:
+
+  # Disables the lockpicking of containers (barrels, chests, shulker boxes, etc.) in Towny claims
+  disableContainerLockpickingInClaims: true

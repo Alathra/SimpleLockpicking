@@ -195,5 +195,8 @@ public class Settings {
         return Cfg.get().getOrDefault("CraftBookCompatibility.Bridge.chance", 0.2);
     }
 
+    public static boolean isLockpickingContainersDisabledInTownyClaims() {
+        return Cfg.get().getOrDefault("TownyCompatibility.disableContainerLockpickingInClaims", true);
+    }
 
 }
