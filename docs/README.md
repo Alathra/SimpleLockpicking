@@ -39,7 +39,7 @@ Lockpicks are a configurable custom item that used by holding them in your main 
 Based on the chances defined in the ``LockpickChances`` section of the [config](https://github.com/Alathra/SimpleLockpicking/blob/main/src/main/resources/config.yml), a lockpick will either be successful and trigger the "LockpickAction" defined above, or break and the player will lose the item.
 
 #### Lockpick Success
-https://github.com/Alathra/SimpleLockpicking/blob/main/docs/assets/lockpick_success.gif?raw=true
+
 ![Lockpick Success](https://github.com/Alathra/SimpleLockpicking/blob/main/docs/assets/lockpick_success.gif?raw=true "Lockpick Success")
 
 #### Lockpick Fail (It breaks)
