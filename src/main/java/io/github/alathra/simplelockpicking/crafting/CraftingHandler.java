@@ -4,6 +4,7 @@ import io.github.alathra.simplelockpicking.Reloadable;
 import io.github.alathra.simplelockpicking.SimpleLockpicking;
 import io.github.alathra.simplelockpicking.api.SimpleLockpickingAPI;
 import io.github.alathra.simplelockpicking.config.Settings;
+import io.github.alathra.simplelockpicking.data.ItemPlugin;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.Recipe;
@@ -24,7 +25,7 @@ public class CraftingHandler implements Reloadable {
 
     @Override
     public void onEnable(SimpleLockpicking plugin) {
-        if (Settings.isDefaultLockpickCraftingRecipeEnabled()) {
+        if (Settings.isDefaultLockpickCraftingRecipeEnabled() && Settings.getItemPlugin().equals(ItemPlugin.NONE)) {
             loadLockpickRecipe();
         }
     }

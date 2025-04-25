@@ -40,6 +40,7 @@ GeneralSettings:
   secondsUntilToggleable: 5
 
   # If the default crafting recipe should be enabled (loaded) when the plugin is enabled
+  # If using an item plugin this will automatically be disabled
   enableDefaultLockpickCraftingRecipe: true
 
   # The sound made when a player uses a lockpick

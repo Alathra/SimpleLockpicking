@@ -5,6 +5,7 @@ import io.github.alathra.simplelockpicking.config.Settings;
 import io.github.alathra.simplelockpicking.core.*;
 import io.github.alathra.simplelockpicking.hook.Hook;
 import io.github.alathra.simplelockpicking.hook.craftbook.WrappedMechanic;
+import io.github.alathra.simplelockpicking.utility.Logger;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.data.Bisected;
@@ -49,7 +50,12 @@ public class SimpleLockpickingAPI {
             }
             default -> {itemStack = getDefaultLockItem();}
         }
-        Objects.requireNonNull(itemStack).setAmount(amount);
+        if (itemStack == null) {
+            Logger.get().error("Lockpick item failed to load! If you are using an item plugin make sure the ID is correct");
+            Logger.get().warn("Loading default lockpick item...");
+            return getLockpickItem();
+        }
+        itemStack.setAmount(amount);
         return itemStack;
     }
 

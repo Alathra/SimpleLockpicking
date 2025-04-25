@@ -33,11 +33,7 @@ public class NexoHook extends AbstractHook {
     }
 
     public @Nullable ItemStack getLockpickItem() {
-        try {
-            return Objects.requireNonNull(NexoItems.itemFromId(Settings.getCustomLockpickItemID())).build();
-        } catch (NullPointerException e) {
-            return null;
-        }
+        return Objects.requireNonNull(NexoItems.itemFromId(Settings.getCustomLockpickItemID())).build();
     }
 
 }
