@@ -3,6 +3,7 @@ package io.github.alathra.simplelockpicking.hook;
 import io.github.alathra.simplelockpicking.hook.bolt.BoltHook;
 import io.github.alathra.simplelockpicking.hook.craftbook.CraftbookHook;
 import io.github.alathra.simplelockpicking.hook.itemsadder.ItemsAdderHook;
+import io.github.alathra.simplelockpicking.hook.mmoitems.MMOItemsHook;
 import io.github.alathra.simplelockpicking.hook.nexo.NexoHook;
 import io.github.alathra.simplelockpicking.hook.oraxen.OraxenHook;
 import io.github.alathra.simplelockpicking.hook.towny.TownyHook;
@@ -19,7 +20,8 @@ public enum Hook {
     Towny(TownyHook.class, "Towny", true),
     ItemsAdder(ItemsAdderHook.class, "ItemsAdder", true),
     Nexo(NexoHook.class, "Nexo", true),
-    Oraxen(OraxenHook.class, "Oraxen", true);
+    Oraxen(OraxenHook.class, "Oraxen", true),
+    MMOItems(MMOItemsHook.class, "MMOItems", true);
 
     private final @NotNull Class<? extends AbstractHook> hookClass; // The hook class used by this hook
     private final @Nullable String pluginName; // The plugin name used by this hook or null if not applicable
@@ -116,6 +118,11 @@ public enum Hook {
     @NotNull
     public static ItemsAdderHook getItemsAdderHook() {
         return (ItemsAdderHook) Hook.ItemsAdder.get();
+    }
+
+    @NotNull
+    public static MMOItemsHook getMMOItemsHook() {
+        return (MMOItemsHook) Hook.MMOItems.get();
     }
 
     @NotNull

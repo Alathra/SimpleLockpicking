@@ -15,8 +15,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Objects;
-
 public class SimpleLockpickingAPI {
 
     /**
@@ -30,6 +28,13 @@ public class SimpleLockpickingAPI {
             case ITEMSADDER -> {
                 if (Hook.ItemsAdder.isLoaded()) {
                     itemStack = Hook.getItemsAdderHook().getLockpickItem();
+                } else {
+                    itemStack = getDefaultLockItem();
+                }
+            }
+            case MMOITEMS -> {
+                if (Hook.MMOItems.isLoaded()) {
+                    itemStack = Hook.getMMOItemsHook().getLockpickItem();
                 } else {
                     itemStack = getDefaultLockItem();
                 }
@@ -71,7 +76,7 @@ public class SimpleLockpickingAPI {
      * Get if the provided ItemStack is a lockpick
      * @return If the ItemStack consists of lockpick items
      */
-    public static boolean isLockItem(ItemStack itemStack) {
+    public static boolean isLockpickItem(ItemStack itemStack) {
         return itemStack.isSimilar(getLockpickItem());
     }
 

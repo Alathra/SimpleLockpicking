@@ -42,6 +42,7 @@ repositories {
     maven("https://repo.oraxen.com/releases") // Oraxen
     maven("https://maven.enginehub.org/repo/") // WorldEdit
     maven("https://repo.codemc.io/repository/maven-public/") // Bolt
+    maven("https://nexus.phoenixdevt.fr/repository/maven-public") // Phoenix Development (MMOItems)
 }
 
 dependencies {
@@ -67,6 +68,8 @@ dependencies {
     compileOnly(libs.towny)
     compileOnly(libs.worldedit)
     compileOnly((files("${project.projectDir}/libs/craftbook-bukkit-5.0.0-beta-04.jar")))
+    compileOnly(libs.mythiclib)
+    compileOnly(libs.mmoitems)
 
     // Testing - Core
     testImplementation(libs.annotations)
@@ -165,7 +168,7 @@ bukkit { // Options: https://github.com/Minecrell/plugin-yml#bukkit
     // Misc properties
     load = net.minecrell.pluginyml.bukkit.BukkitPluginDescription.PluginLoadOrder.POSTWORLD // STARTUP or POSTWORLD
     depend = listOf()
-    softDepend = listOf("CraftBook", "Bolt", "ItemsAdder", "Nexo", "Oraxen", "Towny")
+    softDepend = listOf("CraftBook", "Bolt", "ItemsAdder", "Nexo", "Oraxen", "Towny", "MMOItems")
     loadBefore = listOf()
     provides = listOf()
 }
