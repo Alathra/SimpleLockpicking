@@ -21,7 +21,7 @@ oraxen = "io.th0rgal:oraxen:1.190.0"
 towny = "com.palmergames.bukkit.towny:towny:0.101.1.6"
 worldedit = "com.sk89q.worldedit:worldedit-bukkit:7.4.0-SNAPSHOT"
 boltbukkit = "org.popcraft:bolt-bukkit:1.1.52"
-mmoitems = "net.Indyuce:MMOItems-API:6.9.5-SNAPSHOT"
+mmoitems = "net.Indyuce:MMOItems-API:6.10.1-SNAPSHOT"
 mythiclib = "io.lumine:MythicLib-dist:1.7.1-SNAPSHOT"
 
 # Testing
