@@ -98,15 +98,23 @@ public class LockpickListener implements Listener {
         }
         if (activeLockpick.isContainer()) {
             if (Hook.Towny.isLoaded()) {
-                if (Settings.isLockpickingContainersDisabledInTownyClaims()) {
-                    if (Hook.getTownyHook().isLocationInOwnTown(block.getLocation(), player)) {
-                        player.sendMessage(ColorParser.of("<red>You cannot lockpick containers in your own town").build());
+                if (Hook.getTownyHook().isRuins(block.getLocation())) {
+                    if (!Settings.isLockpickingAllowedInRuins()) {
+                        player.sendMessage(ColorParser.of("<red>You cannot lockpick in ruins").build());
                         LockpickingManager.deRegisterActiveLockpick(activeLockpick);
                         return;
-                    } else if (Hook.getTownyHook().isLocationInAnyTown(block.getLocation())) {
-                        player.sendMessage(ColorParser.of("<red>You cannot lockpick containers within town claims").build());
-                        LockpickingManager.deRegisterActiveLockpick(activeLockpick);
-                        return;
+                    }
+                } else {
+                    if (Settings.isLockpickingContainersDisabledInTownyClaims()) {
+                        if (Hook.getTownyHook().isLocationInOwnTown(block.getLocation(), player)) {
+                            player.sendMessage(ColorParser.of("<red>You cannot lockpick containers in your own town").build());
+                            LockpickingManager.deRegisterActiveLockpick(activeLockpick);
+                            return;
+                        } else if (Hook.getTownyHook().isLocationInAnyTown(block.getLocation())) {
+                            player.sendMessage(ColorParser.of("<red>You cannot lockpick containers within town claims").build());
+                            LockpickingManager.deRegisterActiveLockpick(activeLockpick);
+                            return;
+                        }
                     }
                 }
             }

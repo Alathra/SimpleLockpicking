@@ -88,23 +88,19 @@ CraftBookCompatibility:
   Bridge:
     # If this CraftBook mechanic can be lockpicked
     enabled: true
-
     # The chance of successfully using a lockpick on this CraftBook mechanic
     chance: 0.2
 
   Door:
-
     enabled: true
-
     chance: 0.2
-
   Gate:
-
     enabled: true
-
     chance: 0.2
 
 TownyCompatibility:
 
   # Disables the lockpicking of containers (barrels, chests, shulker boxes, etc.) in Towny claims
   disableContainerLockpickingInClaims: true
+  # Disables the lockpicking of containers (barrels, chests, shulker boxes, etc.) in ruined Town claims
+  allowLockpickingInRuins: true

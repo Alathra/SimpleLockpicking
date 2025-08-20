@@ -201,4 +201,8 @@ public class Settings {
         return Cfg.get().getOrDefault("TownyCompatibility.disableContainerLockpickingInClaims", true);
     }
 
+    public static boolean isLockpickingAllowedInRuins() {
+        return Cfg.get().getOrDefault("TownyCompatibility.allowLockpickingInRuins", true);
+    }
+
 }

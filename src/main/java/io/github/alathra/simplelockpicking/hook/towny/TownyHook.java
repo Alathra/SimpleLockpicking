@@ -56,4 +56,10 @@ public class TownyHook extends AbstractHook {
         return isLocationInTown(location, town);
     }
 
+    public boolean isRuins(Location location) {
+        Town townAtLocation = WorldCoord.parseWorldCoord(location).getTownOrNull();
+        if (townAtLocation == null) return false;
+        return townAtLocation.isRuined();
+    }
+
 }
