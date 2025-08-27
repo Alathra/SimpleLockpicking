@@ -41,4 +41,4 @@ testcontainers = ["testcontainers-jupiter", "testcontainers-mysql", "testcontain
 [plugins]
 shadow = "com.gradleup.shadow:8.3.6"
 run-paper = "xyz.jpenilla.run-paper:2.3.1"
-plugin-yml = "de.eldoria.plugin-yml.bukkit:0.7.1"
+plugin-yml = "de.eldoria.plugin-yml.bukkit:v0.8.0"
