@@ -18,7 +18,7 @@ commandapi-annotations = { module = "dev.jorel:commandapi-annotations", version.
 itemsadder = "dev.lone:api-itemsadder:4.0.10"
 nexo = "com.nexomc:nexo:1.10.0"
 oraxen = "io.th0rgal:oraxen:1.192.0"
-towny = "com.palmergames.bukkit.towny:towny:0.101.2.3"
+towny = "com.palmergames.bukkit.towny:towny:0.101.2.4"
 worldedit = "com.sk89q.worldedit:worldedit-bukkit:7.4.0-SNAPSHOT"
 boltbukkit = "org.popcraft:bolt-bukkit:1.1.79"
 mmoitems = "net.Indyuce:MMOItems-API:6.10.1-SNAPSHOT"
