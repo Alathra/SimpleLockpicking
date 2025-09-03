@@ -17,7 +17,7 @@ commandapi-annotations = { module = "dev.jorel:commandapi-annotations", version.
 # Plugin dependencies
 itemsadder = "dev.lone:api-itemsadder:4.0.10"
 nexo = "com.nexomc:nexo:1.10.0"
-oraxen = "io.th0rgal:oraxen:1.192.0"
+oraxen = "io.th0rgal:oraxen:1.193.0"
 towny = "com.palmergames.bukkit.towny:towny:0.101.2.3"
 worldedit = "com.sk89q.worldedit:worldedit-bukkit:7.4.0-SNAPSHOT"
 boltbukkit = "org.popcraft:bolt-bukkit:1.1.79"
